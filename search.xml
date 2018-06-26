@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[beanFactory]]></title>
+    <url>%2F2018%2F06%2F26%2FbeanFactory%2F</url>
+    <content type="text"><![CDATA[概述 参考链接]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[消息队列]]></title>
+    <url>%2F2018%2F05%2F31%2F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%2F</url>
+    <content type="text"><![CDATA[概述 为什么要使用消息队列? 使用了消息队列会有什么缺点? 消息队列如何选型? 如何保证消息队列是高可用的？ 如何保证消息不被重复消费？ 如何保证消费的可靠性传输? 如何保证消息的顺序性？ 为什么要使用消息队列解耦异步削峰使用了消息队列会有什么缺点系统可用性降低系统复杂性增加消息队列如何选型中小型软件公司，建议选RabbitMQ大型软件公司，根据具体使用在rocketMq和kafka之间二选一如何保证消息队列是高可用的消息队列的集群模式 如何保证消息不被重复消费 or 如何保证消息队列的幂等性原因：网络传输等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将该消息分发给其他的消费者 如何保证消费的可靠性传输其实这个可靠性传输，每种MQ都要从三个角度来分析:生产者弄丢数据、消息队列弄丢数据、消费者弄丢数据 生产者发送数据，开启事务 消息队列持久化数据之后再向生产者确认 消费者消费成功之后确认消息，不要采用自动确认的消息模式 如何保证消息的顺序性通过某种算法，将需要保持先后顺序的消息放到同一个消息队列中(kafka中就是partition,rabbitMq中就是queue)。然后只用一个消费者去消费该队列。保证入队有序就行，出队以后的顺序交给消费者自己去保证，没有固定套路 参考链接https://mp.weixin.qq.com/s?__biz=MzU0OTE4MzYzMw==&amp;mid=2247484799&amp;idx=1&amp;sn=bc98c5b88a276ce113de633800b6cdb8&amp;chksm=fbb28c81ccc505974e163faf38afc08ecafe6ae3c68b8b3d9993c214650dc7b4fe75c49006ac&amp;mpshare=1&amp;scene=23&amp;srcid=0531L6FSQOszDoWxcyQM1Hfj%23rd]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[成为java高级程序员需要掌握哪些]]></title>
+    <url>%2F2018%2F05%2F31%2F%E6%88%90%E4%B8%BAjava%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1%E5%93%AA%E4%BA%9B%2F</url>
+    <content type="text"><![CDATA[概述 参考链接https://mp.weixin.qq.com/s?__biz=MzA3ODQ0Mzg2OA==&amp;mid=2649047703&amp;idx=1&amp;sn=d04a7427d89708016dcb7400529328f1&amp;chksm=875346a4b024cfb2f67810df77722a885cf4732ef8cf17f6fcfb52ac690d5b4a6c585c79a145&amp;mpshare=1&amp;scene=23&amp;srcid=0531ilcdBgUXBf2LGI5B7so4%23rd]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[分布式事务]]></title>
+    <url>%2F2018%2F05%2F30%2F%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[概述 在编程中.一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同 参考链接https://www.i3geek.com/archives/841https://www.i3geek.com/archives/841https://www.jianshu.com/p/21f7fdfd9906]]></content>
+      <categories>
+        <category>Transction</category>
+      </categories>
+      <tags>
+        <tag>事务</tag>
+        <tag>分布式</tag>
+        <tag>分布式事务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[DDos攻击]]></title>
+    <url>%2F2018%2F05%2F23%2FDDos%E6%94%BB%E5%87%BB%2F</url>
+    <content type="text"><![CDATA[概述DDos攻击，即分布式拒绝服务 DDos攻击的原理 如何防御DDos攻击 DDos攻击的原理它是利用TCP连接三次握手的原理，发送大量的建立连接的网络包，但不实际建立连接，最终导致被攻击服务器的网络队列被占满，服务被正常用户访问。 如何防御DDos攻击 充分利用网络设备保护网络资源，比如路由器限制SYN/ICMP的最大流量，防火墙限制特定IP，过滤攻击时伪造的大量虚假内部IP（Internet内部保留的区域性IP地址），启用防火墙的防DDos属性 服务器自身定期扫描安全漏洞，升级补丁，关闭不必要的服务，限制最大SYN半连接数目，缩短SYN半连接time out时间等参考链接 https://blog.csdn.net/huwei2003/article/details/45476743 https://www.jianshu.com/p/cacfe5749e81]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Java动态代理]]></title>
+    <url>%2F2018%2F05%2F22%2FJava%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%2F</url>
+    <content type="text"><![CDATA[概述 Java的动态代理，是指利用Java反射技术在运行期创建实现某些特定接口的新类及其实例，代理的是接口，不是抽象类，更不是类。 动态代理的作用 动态代理的作用 一个接口的实现在编译时无法知道，需要在运行时才能实现 实现适配器模式、装饰者模式等设计模式 面向切面编程，AOP技术 参考链接https://www.cnblogs.com/techyc/p/3455950.html]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Proxy</category>
+      </categories>
+      <tags>
+        <tag>动态代理</tag>
+        <tag>Proxy</tag>
+        <tag>Reflection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[zookeeper简介]]></title>
+    <url>%2F2018%2F05%2F18%2Fzookeeper%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[概述 什么是zookeeper? 什么是分布式系统？zookeeper是一个中间件，为分布式系统提供协调服务分布式系统就是很多台计算机组成一个整体，一致对外并且处理同一个请求；内部每台计算机都可以相互通信（rest/rpc);客户端到服务端的一次请求到相应结束会经历对台计算机 分布式文件系统——俗称网盘 参考链接]]></content>
+      <categories>
+        <category>ZooKeeper</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[volatile的实现原理]]></title>
+    <url>%2F2018%2F05%2F16%2Fvolatile%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"><![CDATA[概述 volatile的两个语义 volatile的两个语义是什么 保证变量对所有线程的可见性 禁止机器级别的指令重排序优化 volatile如何保证变量对所有线程的可见性的当一个变量被volatile关键字修饰之后，如果某个线程修改了该变量的值，其他线程会得到更新通知，其他线程在使用该变量时就会去主内存中刷新该变量的值 volatile是如何禁止机器级别的指令重排序优化的通过反汇编机器指令，可以看到被volatile修饰的变量在赋值后多了一个lock操作，这个操作相当于一个内存屏障，重排序时不能把lock之后的指令重排序到lock之前，对应到DCL例子来说，就是返回实例对象这个操作对应的指令不能在给volatile变量赋值之前执行，保证了其他线程拿到实例对象是可用的，是已经正确实例化的对象 参考链接《深入理解Java虚拟机·JVM高级特性与最佳实践》第12章 Java内存模型与线程 12.3.4节]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Concurrent</category>
+      </categories>
+      <tags>
+        <tag>Concurrent</tag>
+        <tag>volatile</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[信号Signal和信号量Semaphore]]></title>
+    <url>%2F2018%2F05%2F16%2F%E4%BF%A1%E5%8F%B7Signal%E5%92%8C%E4%BF%A1%E5%8F%B7%E9%87%8FSemaphore%2F</url>
+    <content type="text"><![CDATA[参考链接https://blog.csdn.net/langjian2012/article/details/39717903 http://www.importnew.com/22519.html]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[JDK常用的命令行工具]]></title>
+    <url>%2F2018%2F05%2F15%2FJDK%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%2F</url>
+    <content type="text"><![CDATA[参考链接http://www.importnew.com/18398.html]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Thread的生命周期]]></title>
+    <url>%2F2018%2F05%2F15%2FThread%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%2F</url>
+    <content type="text"><![CDATA[概述 Java的Thread生命周期中有几个状态？ Java的Thread生命周期中的状态是怎么转换的？ Java的Thread生命周期中有6个状态参考JDK API 1.8 java.lang.Thread.State NEW 新建状态，还没有执行Thread.start()方法时所处的状态 RUNNABLE 可执行状态，在等待系统资源，比如处理器 BLOCKED 阻塞状态，线程在同步代码块中等待获取锁 WAITING 等待状态，当线程调用了如下的方法时就会进入该状态，比如：调用Object.wait()没有超时, Thread.join()没有超时, LockSupport.park() TIMED_WAITING 超时等待状态，当线程调用了如下的方法时就会进入该状态，比如：调用Object.wait(long), Thread.join(long), LockSuport.parkNanos(), LockSupport.parkUntil() TERMINATED 终止状态，线程运行完run（）方法之后就会进入该状态 这里有个疑问： 为什么BLOCKED状态是在线程调用了Objcet.wait()方法之后进入的，而WAITING状态也是线程调用Object.wait()方法进入的，那当线程调用Object.wait()方法之后是进入BLOCKED状态呢，还是进入WAITING状态呢？ Java的Thread生命周期中的状态是怎么转换的？参考链接https://www.zhihu.com/question/27654579]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Thread</category>
+      </categories>
+      <tags>
+        <tag>JDK</tag>
+        <tag>Thread</tag>
+        <tag>wait</tag>
+        <tag>notify</tag>
+        <tag>join</tag>
+        <tag>sleep</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[队列相关问题]]></title>
+    <url>%2F2018%2F05%2F14%2F%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[概述 LinkedBlockingQueue的实现原理 ArrayBlockingQueue的实现原理 SynchronousQueue的实现原理 BlockingQueue提供的方法分析 抛出异常 返回特殊值 一直阻塞 超时退出 插入方法 add(e) offer(e) put(e) offer(e, time unit) 移除方法 remove() poll() take() poll(time, unit) 检查方法 element() peek() - - LinkedBlockingQueue的实现原理 LinkedBlockingQueue在构造时可以指定队列大小，如果不指定，默认使用Integer.MAX_VALUE; add方法继承自AbstractQueue,实质上是调用offer方法向队列中加入元素，不管是offer还是put都不允许被加入的元素是null，否则将抛出空指针异常； 内部有两把重入锁，分别是putLock和takeLock,还有两个条件,分别是putLock创建的notFull,以及takeLock创建的notEmpty,不同的锁对应元素的入队和出队操作，提高并发的效率，比如putLock锁在生产者向队列添加元素时起作用，而takeLock锁在消费者在队列获取元素时起作用；不同的条件，可以通知不同的线程，比如notEmpty条件会通知所有消费者线程，notFull条件会通知所有生产者线程 LinkedBlockingQueue类图 ArrayBlockingQueue的实现原理ArrayBlockingQueue类图 SynchronousQueue的实现原理SynchronousQueue类图 参考链接https://segmentfault.com/a/1190000004911771 https://www.cnblogs.com/lyysz/p/5913264.html]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Collections</category>
+        <category>Queue</category>
+      </categories>
+      <tags>
+        <tag>List</tag>
+        <tag>LinkedList</tag>
+        <tag>BlockingQueue</tag>
+        <tag>Queue</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Java中的反斜杠0是什么意思]]></title>
+    <url>%2F2018%2F05%2F11%2FJava%E4%B8%AD%E7%9A%84%E5%8F%8D%E6%96%9C%E6%9D%A00%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%2F</url>
+    <content type="text"><![CDATA[概述Java中char a = &#39;\0&#39;;给一个字符变量赋值为&#39;\0&#39;表示什么意思？char a = &#39;0&#39;又表示什么意思？ 参考链接https://www.jiuzhang.com/qa/3583/ https://bbs.csdn.net/topics/390544484 http://ascii.911cha.com/]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>char</tag>
+        <tag>字符变量</tag>
+        <tag>ASCII码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Shell脚本批量发送POST请求]]></title>
+    <url>%2F2018%2F05%2F10%2FShell%E8%84%9A%E6%9C%AC%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81POST%E8%AF%B7%E6%B1%82%2F</url>
+    <content type="text"><![CDATA[概述 重点eval命令行前面放eval，在执行命令之前，它将被扫描两次 12pipe="|"eval ls $pipe wc -c shell第1次扫描命令行时，它替换出pipe的值｜，接着eval使它再次扫描命令行，这时shell把｜作为管道符号了。 如果变量中包含任何需要shell直接在命令行中看到的字符（不是替换的结果），就可以使用eval。命令行结束符（；｜ &amp;），I／o重定向符（&lt; &gt;）和引号就属于对shell具有特殊意义的符号，必须直接出现在命令行中。 源码1234567891011121314151617181920212223242526272829#! /bin/baship=10.12.102.134port=7080cat data | while read ido line=$i source_id=`echo $line | cut -d ' ' -f 1` item_code=`echo $line | cut -d ' ' -f 2` description=`echo $line | cut -d ' ' -f 3` address=`echo $line | cut -d ' ' -f 4` area_code=`echo $line | cut -d ' ' -f 5` longitude=`echo $line | cut -d ' ' -f 6` latitude=`echo $line | cut -d ' ' -f 7` echo $source_id echo $item_code echo $description echo $address echo $area_code echo $longitude echo $latitude send_data='&#123;"sourceId":"'$source_id'", "itemCode":"'$item_code'", "description":"'$description'", "address":"'$address'","areaCode":"'$area_code'", "longitude":"'$longitude'", "latitude":"'$latitude'","files":[], "data":&#123;&#125;&#125;' send_data="'"$send_data"'" param=' -d '$send_data command='curl -X POST http://'$ip':'$port'/dcm-web/caseApi/addCase.json -H "Content-Type:application/json"'$param # curl -X POST http://$ip:$port/dcm-web/caseApi/addCase.json -H "Content-Type: application/json" $param echo $command eval $commanddone 参考链接http://www.cnblogs.com/dwdxdy/archive/2012/07/25/2608816.html http://blog.zengrong.net/post/1591.html https://droidyue.com/blog/2014/07/02/send-post-request-using-curl/ https://blog.csdn.net/wanruirui/article/details/5975867 http://blog.51cto.com/363918/1341977]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Shell</category>
+      </categories>
+      <tags>
+        <tag>Bash</tag>
+        <tag>for循环</tag>
+        <tag>curl</tag>
+        <tag>post</tag>
+        <tag>json</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[其他面试相关问题]]></title>
+    <url>%2F2018%2F05%2F10%2F%E5%85%B6%E4%BB%96%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[1.4、锁机制说说线程安全问题，什么是线程安全，如何保证线程安全 重入锁的概念，重入锁为什么可以防止死锁 产生死锁的四个条件（互斥、请求与保持、不剥夺、循环等待） 如何检查死锁（通过jConsole检查死锁） volatile 实现原理（禁止指令重排、刷新内存） synchronized 实现原理（对象监视器） synchronized 与 lock 的区别 AQS同步队列 CAS无锁的概念、乐观锁和悲观锁 常见的原子操作类 什么是ABA问题，出现ABA问题JDK是如何解决的 乐观锁的业务场景及实现方式 Java 8并法包下常见的并发类 偏向锁、轻量级锁、重量级锁、自旋锁的概念 1.5、JVMJVM运行时内存区域划分 内存溢出OOM和堆栈溢出SOE的示例及原因、如何排查与解决 如何判断对象是否可以回收或存活 常见的GC回收算法及其含义 常见的JVM性能监控和故障处理工具类：jps、jstat、jmap、jinfo、jconsole等 JVM如何设置参数 JVM性能调优 类加载器、双亲委派模型、一个类的生命周期、类是如何加载到JVM中的 类加载的过程：加载、验证、准备、解析、初始化 强引用、软引用、弱引用、虚引用 Java内存模型JMM 1.6、设计模式常见的设计模式 设计模式的的六大原则及其含义 常见的单例模式以及各种实现方式的优缺点，哪一种最好，手写常见的单利模式 设计模式在实际场景中的应用 Spring中用到了哪些设计模式 MyBatis中用到了哪些设计模式 你项目中有使用哪些设计模式 说说常用开源框架中设计模式使用分析 动态代理很重要！！！ 1.7、数据结构 树（二叉查找树、平衡二叉树、红黑树、B树、B+树） 深度有限算法、广度优先算法 克鲁斯卡尔算法、普林母算法、迪克拉斯算法 什么是一致性Hash及其原理、Hash环问题 常见的排序算法和查找算法：快排、折半查找、堆排序等 1.8、网络/IO基础BIO、NIO、AIO的概念 什么是长连接和短连接 Http1.0和2.0相比有什么区别，可参考《Http 2.0》 Https的基本概念 三次握手和四次挥手、为什么挥手需要四次 从游览器中输入URL到页面加载的发生了什么？可参考《从输入URL到页面加载发生了什么》 二、数据存储和消息队列 2.1、数据库MySQL 索引使用的注意事项 DDL、DML、DCL分别指什么 explain命令 left join，right join，inner join 数据库事物ACID（原子性、一致性、隔离性、持久性） 事物的隔离级别（读未提交、读以提交、可重复读、可序列化读） 脏读、幻读、不可重复读 数据库的几大范式 数据库常见的命令 说说分库与分表设计 分库与分表带来的分布式困境与应对之策（如何解决分布式下的分库分表，全局表？） 说说 SQL 优化之道 MySQL遇到的死锁问题、如何排查与解决 存储引擎的 InnoDB与MyISAM区别，优缺点，使用场景 索引类别（B+树索引、全文索引、哈希索引）、索引的原理 什么是自适应哈希索引（AHI） 为什么要用 B+tree作为MySQL索引的数据结构 聚集索引与非聚集索引的区别 遇到过索引失效的情况没，什么时候可能会出现，如何解决 limit 20000 加载很慢怎么解决 如何选择合适的分布式主键方案 选择合适的数据存储方案 常见的几种分布式ID的设计方案 常见的数据库优化方案，在你的项目中数据库如何进行优化的 2.2、RedisRedis 有哪些数据类型，可参考《Redis常见的5种不同的数据类型详解》 Redis 内部结构 Redis 使用场景 Redis 持久化机制，可参考《使用快照和AOF将Redis数据持久化到硬盘中》 Redis 集群方案与实现 Redis 为什么是单线程的？ 缓存雪崩、缓存穿透、缓存预热、缓存更新、缓存降级 使用缓存的合理性问题 Redis常见的回收策略 2.3、消息队列消息队列的使用场景 消息的重发补偿解决思路 消息的幂等性解决思路 消息的堆积解决思路 自己如何实现消息队列 如何保证消息的有序性 三、开源框架和容器3.1、SSM/ServletServlet的生命周期 转发与重定向的区别 BeanFactory 和 ApplicationContext 有什么区别 Spring Bean 的生命周期 Spring IOC 如何实现 Spring中Bean的作用域，默认的是哪一个 说说 Spring AOP、Spring AOP 实现原理 动态代理（CGLib 与 JDK）、优缺点、性能对比、如何选择 Spring 事务实现方式、事务的传播机制、默认的事务类别 Spring 事务底层原理 Spring事务失效（事务嵌套），JDK动态代理给Spring事务埋下的坑，可参考《JDK动态代理给Spring事务埋下的坑！》 如何自定义注解实现功能 Spring MVC 运行流程 Spring MVC 启动流程 Spring 的单例实现原理 Spring 框架中用到了哪些设计模式 Spring 其他产品（Srping Boot、Spring Cloud、Spring Secuirity、Spring Data、Spring AMQP 等） 有没有用到Spring Boot，Spring Boot的认识、原理 MyBatis的原理 可参考《为什么会有Spring》 可参考《为什么会有Spring AOP》 3.2、Netty为什么选择 Netty 说说业务中，Netty 的使用场景 原生的 NIO 在 JDK 1.7 版本存在 epoll bug 什么是TCP 粘包/拆包 TCP粘包/拆包的解决办法 Netty 线程模型 说说 Netty 的零拷贝 Netty 内部执行流程 Netty 重连实现 3.3、Tomcat Tomcat的基础架构（Server、Service、Connector、Container） Tomcat如何加载Servlet的 Pipeline-Valve机制 可参考：《四张图带你了解Tomcat系统架构！》 四、分布式4.1、Nginx请解释什么是C10K问题或者知道什么是C10K问题吗？ Nginx简介，可参考《Nginx简介》 正向代理和反向代理. Nginx几种常见的负载均衡策略 Nginx服务器上的Master和Worker进程分别是什么 使用“反向代理服务器”的优点是什么? 4.2、分布式其他谈谈业务中使用分布式的场景 Session 分布式方案 Session 分布式处理 分布式锁的应用场景、分布式锁的产生原因、基本概念 分布是锁的常见解决方案 分布式事务的常见解决方案 集群与负载均衡的算法与实现 说说分库与分表设计，可参考《数据库分库分表策略的具体实现方案》 分库与分表带来的分布式困境与应对之策 4.3、Dubbo 什么是Dubbo，可参考《Dubbo入门》 什么是RPC、如何实现RPC、RPC 的实现原理，可参考《基于HTTP的RPC实现》 Dubbo中的SPI是什么概念 Dubbo的基本原理、执行流程 五、微服务 5.1、微服务 前后端分离是如何做的？ 微服务哪些框架 Spring Could的常见组件有哪些？可参考《Spring Cloud概述》 领域驱动有了解吗？什么是领域驱动模型？充血模型、贫血模型 JWT有了解吗，什么是JWT，可参考《前后端分离利器之JWT》 你怎么理解 RESTful 说说如何设计一个良好的 API 如何理解 RESTful API 的幂等性 如何保证接口的幂等性 说说 CAP 定理、BASE 理论 怎么考虑数据一致性问题 说说最终一致性的实现方案 微服务的优缺点，可参考《微服务批判》 微服务与 SOA 的区别 如何拆分服务、水平分割、垂直分割 如何应对微服务的链式调用异常 如何快速追踪与定位问题 如何保证微服务的安全、认证 5.2、安全问题如何防范常见的Web攻击、如何方式SQL注入 服务端通信安全攻防 HTTPS原理剖析、降级攻击、HTTP与HTTPS的对比 5.3、性能优化性能指标有哪些 如何发现性能瓶颈 性能调优的常见手段 说说你在项目中如何进行性能调优 六、其他6.1、设计能力说说你在项目中使用过的UML图 你如何考虑组件化、服务化、系统拆分 秒杀场景如何设计 可参考：《秒杀系统的技术挑战、应对策略以及架构设计总结一二！》 6.2、业务工程说说你的开发流程、如何进行自动化部署的 你和团队是如何沟通的 你如何进行代码评审 说说你对技术与业务的理解 说说你在项目中遇到感觉最难Bug，是如何解决的 介绍一下工作中的一个你认为最有价值的项目，以及在这个过程中的角色、解决的问题、你觉得你们项目还有哪些不足的地方 6.3、软实力说说你的优缺点、亮点 说说你最近在看什么书、什么博客、在研究什么新技术、再看那些开源项目的源代码 说说你觉得最有意义的技术书籍 工作之余做什么事情、平时是如何学习的，怎样提升自己的能力 说说个人发展方向方面的思考 说说你认为的服务端开发工程师应该具备哪些能力 说说你认为的架构师是什么样的，架构师主要做什么 如何看待加班的问题 zookeeper的watcher乐观锁怎么实现 一个项目的整个流程 说出一个空间换时间的场景 centos7的内存分配方式和6有啥不同 你对公司有什么价值 kafka为什么性能这么好 G1和CMS的区别，G1有啥劣势 Kafka的整体架构 Netty的一次请求过程 自旋锁/偏向锁/轻量级锁 hbase线上问题排查 求一棵树两个节点的最近的公共父节点 HTTP 301 302有啥区别 设计一个短链接算法 md5长度是多少 ThreadLocal如果引用一个static变量是不是线程安全的？ netty的写流程 redis数据结构的实现，字符串是怎么实现的，有什么优势 求一棵树所有左叶子节点的和 给定一个值K，一个数列，求数列中两个值a和b，使得a+b=k kafka的结构 怎么防止订单重复提交 缓存同步问题 istio，介绍了设计理念 lambda表达式怎么来的，我从lambda演算说到lisp说到scala 如何保证日志上传的幂等性，如何在保证幂等的前提下提高性能 问我有没有什么要了解的，花了十几分钟介绍他们现在做的事情、技术栈、未来的一些计划, 项目使用JDK8吗，有使用Stream，Lambda等新特性吗 如何实现分布式锁、如何保证幂等性、分布式事务的解决方案 分布式锁的缺点，我说性能会出现瓶颈 一致性hash如何保证负载均衡 kafka和rocketmq各自的优缺点 dubbo的一个请求过程、序列化方式 序列化框架、PB的缺点、如何从数据库大批量导入数据到hbase 何保证消息幂等性 参考链接https://mp.weixin.qq.com/s?__biz=MzA3ODQ0Mzg2OA==&amp;mid=2649047626&amp;idx=1&amp;sn=51772d16d8a09e5bbbd9985acdd8f91c&amp;chksm=87534679b024cf6fef68b47c706f7fd6d977e5621cea478ddf7b64087b7a039eb52eaf748d12&amp;mpshare=1&amp;scene=23&amp;srcid=0510pOnjDH6eemO4NEjdi3RK%23rd https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247484900&amp;idx=1&amp;sn=e3bfb1f5220282bc3578afbb42d2424a&amp;chksm=ebf6dd9bdc81548d6ab47291ca101ce86f936f5bec66edc50f023272d3eb1432bb960c0cee8b&amp;mpshare=1&amp;scene=23&amp;srcid=0530CyFjMU6iegbK9D4aCs9T%23rd]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[线程的生命周期，状态是如何转移的]]></title>
+    <url>%2F2018%2F05%2F10%2F%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%8C%E7%8A%B6%E6%80%81%E6%98%AF%E5%A6%82%E4%BD%95%E8%BD%AC%E7%A7%BB%E7%9A%84%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[线程池的几种实现方式]]></title>
+    <url>%2F2018%2F05%2F10%2F%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[讲讲线程池的实现原理]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%AE%B2%E8%AE%B2%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[ThreadLocal 原理分析，ThreadLocal为什么会出现OOM，出现的深层次原理]]></title>
+    <url>%2F2018%2F05%2F10%2FThreadLocal-%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%EF%BC%8CThreadLocal%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0OOM%EF%BC%8C%E5%87%BA%E7%8E%B0%E7%9A%84%E6%B7%B1%E5%B1%82%E6%AC%A1%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[说说 Exchanger 原理]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%AF%B4%E8%AF%B4-Exchanger-%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[说说 Semaphore 原理]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%AF%B4%E8%AF%B4-Semaphore-%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[说说 CountDownLatch、CyclicBarrier 原理和区别]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%AF%B4%E8%AF%B4-CountDownLatch%E3%80%81CyclicBarrier-%E5%8E%9F%E7%90%86%E5%92%8C%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[进程间通信的方式]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[创建线程的方式及实现]]></title>
+    <url>%2F2018%2F05%2F10%2F%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E5%BC%8F%E5%8F%8A%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[线程和进程的概念、并行和并发的概念]]></title>
+    <url>%2F2018%2F05%2F10%2F%E7%BA%BF%E7%A8%8B%E5%92%8C%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%B9%B6%E8%A1%8C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%9A%84%E6%A6%82%E5%BF%B5%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[手写简单的HashMap]]></title>
+    <url>%2F2018%2F05%2F10%2F%E6%89%8B%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84HashMap%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[ConcurrentHashMap 的工作原理及代码实现，如何统计所有的元素个数]]></title>
+    <url>%2F2018%2F05%2F10%2FConcurrentHashMap-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%8C%E5%A6%82%E4%BD%95%E7%BB%9F%E8%AE%A1%E6%89%80%E6%9C%89%E7%9A%84%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[HashMap出现Hash DOS攻击的问题]]></title>
+    <url>%2F2018%2F05%2F10%2FHashMap%E5%87%BA%E7%8E%B0Hash-DOS%E6%94%BB%E5%87%BB%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程情况下HashMap死循环的问题]]></title>
+    <url>%2F2018%2F05%2F10%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%83%85%E5%86%B5%E4%B8%8BHashMap%E6%AD%BB%E5%BE%AA%E7%8E%AF%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[HashMap 的工作原理及代码实现，什么时候用到红黑树]]></title>
+    <url>%2F2018%2F05%2F10%2FHashMap-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[HashMap 和 ConcurrentHashMap 的区别]]></title>
+    <url>%2F2018%2F05%2F10%2FHashMap-%E5%92%8C-ConcurrentHashMap-%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[HashSet 和 HashMap 区别]]></title>
+    <url>%2F2018%2F05%2F10%2FHashSet-%E5%92%8C-HashMap-%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[HashMap 和 Hashtable 的区别]]></title>
+    <url>%2F2018%2F05%2F10%2FHashMap-%E5%92%8C-Hashtable-%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[ArrayList 与 Vector 区别]]></title>
+    <url>%2F2018%2F05%2F10%2FArrayList-%E4%B8%8E-Vector-%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Arraylist 与 LinkedList 区别]]></title>
+    <url>%2F2018%2F05%2F10%2FArraylist-%E4%B8%8E-LinkedList-%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[List 和 Map 区别]]></title>
+    <url>%2F2018%2F05%2F10%2FList-%E5%92%8C-Map-%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Set和hashCode以及equals方法的联系]]></title>
+    <url>%2F2018%2F05%2F10%2FSet%E5%92%8ChashCode%E4%BB%A5%E5%8F%8Aequals%E6%96%B9%E6%B3%95%E7%9A%84%E8%81%94%E7%B3%BB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[List 和 Set 区别]]></title>
+    <url>%2F2018%2F05%2F10%2FList-%E5%92%8C-Set-%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>JDK</category>
+        <category>Set</category>
+      </categories>
+      <tags>
+        <tag>Set</tag>
+        <tag>HashSet</tag>
+        <tag>TreeSet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Java 8有哪些新特性]]></title>
+    <url>%2F2018%2F05%2F10%2FJava-8%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B0%E7%89%B9%E6%80%A7%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[JDK和JRE的区别]]></title>
+    <url>%2F2018%2F05%2F10%2FJDK%E5%92%8CJRE%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Java的平台无关性如何体现出来的]]></title>
+    <url>%2F2018%2F05%2F10%2FJava%E7%9A%84%E5%B9%B3%E5%8F%B0%E6%97%A0%E5%85%B3%E6%80%A7%E5%A6%82%E4%BD%95%E4%BD%93%E7%8E%B0%E5%87%BA%E6%9D%A5%E7%9A%84%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Object类中常见的方法，为什么wait notify会放在Object里边？]]></title>
+    <url>%2F2018%2F05%2F10%2FObject%E7%B1%BB%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88wait-notify%E4%BC%9A%E6%94%BE%E5%9C%A8Object%E9%87%8C%E8%BE%B9%EF%BC%9F%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[什么是Java序列化和反序列化，如何实现Java序列化？或者请解释Serializable 接口的作用]]></title>
+    <url>%2F2018%2F05%2F10%2F%E4%BB%80%E4%B9%88%E6%98%AFJava%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0Java%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F%E6%88%96%E8%80%85%E8%AF%B7%E8%A7%A3%E9%87%8ASerializable-%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BD%9C%E7%94%A8%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[hashCode和equals方法的区别与联系]]></title>
+    <url>%2F2018%2F05%2F10%2FhashCode%E5%92%8Cequals%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[equals与==的区别]]></title>
+    <url>%2F2018%2F05%2F10%2Fequals%E4%B8%8E-%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[MVC设计思想]]></title>
+    <url>%2F2018%2F05%2F10%2FMVC%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[列出自己常用的JDK包]]></title>
+    <url>%2F2018%2F05%2F10%2F%E5%88%97%E5%87%BA%E8%87%AA%E5%B7%B1%E5%B8%B8%E7%94%A8%E7%9A%84JDK%E5%8C%85%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Session与Cookie区别]]></title>
+    <url>%2F2018%2F05%2F10%2FSession%E4%B8%8ECookie%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[HTTP请求的GET与POST方式的区别]]></title>
+    <url>%2F2018%2F05%2F10%2FHTTP%E8%AF%B7%E6%B1%82%E7%9A%84GET%E4%B8%8EPOST%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[说说自定义注解的场景及实现]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%AF%B4%E8%AF%B4%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%9C%BA%E6%99%AF%E5%8F%8A%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"><![CDATA[概述 Java注解基本知识 如何访问注解 Java注解基本知识 注解是代码的附属信息，不能干扰代码的正常执行，无论删除或增加注解，代码都能够正常执行 定义注解使用@interface修饰符 Java预定义注解被称为元注解，它们被Java编译器使用，比如：@Retention注解和@Target注解，前者定义注解的保留期限，后者定义注解的应用目标 注解的成员声明和接口的方法声明类似，还可以使用default关键字指定成员的默认值 如果注解只有一个成员，则成员名必须取名为value(),使用时如果给成员赋值可以不写成员名和赋值符号’=’ 如果注解有多个成员，在赋值时如果只给value()成员赋值，也可以不写成员名和赋值符号’=’ 如果在赋值时要同时给多个成员赋值，则必须写成员名和赋值符号’=’ 所有注解类都隐式继承与java.lang.annotation.Annotation,但是注解不允许显示继承于其他的接口 有个问题，Java中所有类都隐式继承与Object类这个说法正确吗？ 如何访问注解通过Java的反射机制读取注解的信息若要通过反射来读取注解信息，那么被定义的注解的保留期限必须是RententionPolicy.RUNTIME,只有该策略下的注解信息会被保留在目标类代码的字节码中，并且当类加载器加载字节码时会将注解信息加载到JVM中 定义注解12345@Retention(RetentionPolicy.RUNTIME) // 定义@NeedTest注解的保留期限，该注解会保存到目标类的字节码中，并且会被类加载器加载到JVM中@Target(ElementType.METHOD) // 定义@NeedTest注解的应用目标，这是一个方法级别的注解public @interface NeedTest &#123; boolean value() default true; // 单个成员，成员名必须是value(), 默认值是true&#125; 使用注解12345678910111213141516public class MyService &#123; public void saySomething()&#123; System.out.println("say something"); &#125; @NeedTest(true) // 成员名value()设置为true public void sayHello(String name)&#123; System.out.println("hello "+ name); &#125; @NeedTest(false) // 成员名value()设置为false public void sayHi(String name)&#123; System.out.println("hi " + name); &#125;&#125; 访问注解123456789101112131415161718@Testpublic void testCustomAnnotation() &#123; Class clazz = MyService.class; Method[] methods = clazz.getDeclaredMethods(); if (methods.length == 0)&#123; System.out.println("method " + clazz.getName() + " has no declared method"); &#125;else &#123; for (Method method : methods)&#123; NeedTest annotation = method.getAnnotation(NeedTest.class); // 所有自定义的注解都隐式继承自java.lang.annotation.Annotation接口，但是不允许显示继承其他接口 if (annotation == null)&#123; System.out.println("method" + method.getName() + " has not annotated @NeedTest"); &#125;else &#123; boolean value = annotation.value(); System.out.println(method.getName() + " has annotated @NeedTest and value = " + value); &#125; &#125; &#125;&#125; 参考链接《精通Spring4.x——企业应用开发实践》 第8章 基于@AspectJ和Schema的AOP 8.2 Java5.0注解知识快速进阶]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Annotation</category>
+      </categories>
+      <tags>
+        <tag>Annotation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[说说反射的用途及实现]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%AF%B4%E8%AF%B4%E5%8F%8D%E5%B0%84%E7%9A%84%E7%94%A8%E9%80%94%E5%8F%8A%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[抽象类和接口有什么区别]]></title>
+    <url>%2F2018%2F05%2F10%2F%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[重载和重写的区别]]></title>
+    <url>%2F2018%2F05%2F10%2F%E9%87%8D%E8%BD%BD%E5%92%8C%E9%87%8D%E5%86%99%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[String、StringBuilder、StringBuffer]]></title>
+    <url>%2F2018%2F05%2F10%2FString%E3%80%81StringBuilder%E3%80%81StringBuffer%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[包装类，装箱和拆箱]]></title>
+    <url>%2F2018%2F05%2F10%2F%E5%8C%85%E8%A3%85%E7%B1%BB%EF%BC%8C%E8%A3%85%E7%AE%B1%E5%92%8C%E6%8B%86%E7%AE%B1%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[int 和 Integer 有什么区别，Integer的值缓存范围]]></title>
+    <url>%2F2018%2F05%2F10%2Fint-%E5%92%8C-Integer-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%8CInteger%E7%9A%84%E5%80%BC%E7%BC%93%E5%AD%98%E8%8C%83%E5%9B%B4%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[请写出5种常见到的runtime exception]]></title>
+    <url>%2F2018%2F05%2F10%2F%E8%AF%B7%E5%86%99%E5%87%BA5%E7%A7%8D%E5%B8%B8%E8%A7%81%E5%88%B0%E7%9A%84runtime-exception%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Exception、Error、运行时异常与一般异常有何异同]]></title>
+    <url>%2F2018%2F05%2F10%2FException%E3%80%81Error%E3%80%81%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E4%B8%8E%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E6%9C%89%E4%BD%95%E5%BC%82%E5%90%8C%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[final, finally, finalize 的区别]]></title>
+    <url>%2F2018%2F05%2F10%2Ffinal-finally-finalize-%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[WebApplicationContext与ServletContext的相关问题]]></title>
+    <url>%2F2018%2F05%2F10%2FWebApplicationContext%E4%B8%8EServletContext%E7%9A%84%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[概述ContextLoaderListener类图 参考链接]]></content>
+      <categories>
+        <category>Spring</category>
+        <category>WebMVC</category>
+      </categories>
+      <tags>
+        <tag>ApplicationContext</tag>
+        <tag>ServletContext</tag>
+        <tag>Spring</tag>
+        <tag>Servlet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MyBatis缓存的相关问题]]></title>
+    <url>%2F2018%2F05%2F10%2FMyBatis%E7%BC%93%E5%AD%98%E7%9A%84%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[概述 MyBatis一级缓存和二级缓存的实现原理是什么？ MyBatis二级缓存的实现方式有哪些，默认使用什么方式？ MyBatis缓存最佳实践 实现原理一级缓存是sqlsession级别，MyBatis默认开启一级缓存， 二级缓存是Mapper级别，默认是关闭的。 参考链接https://www.cnblogs.com/fqwsndc1314-5207788/p/7594924.html]]></content>
+      <categories>
+        <category>Java</category>
+        <category>MyBatis</category>
+        <category>Cache</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Mybatis</tag>
+        <tag>Cache</tag>
+        <tag>缓存</tag>
+        <tag>一级缓存</tag>
+        <tag>二级缓存</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[并发与多线程]]></title>
+    <url>%2F2018%2F05%2F09%2F%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[概述 什么是并发，与并行的区别 为什么要用到并发 并发编程最佳实践 什么是并发，与并行的区别在计算机程序世界中，并发指的是计算机可以执行多个任务的能力；而并行指计算机能同时处理多个任务，它们的最关键点是同时。 为什么要用到并发多核的CPU的背景下，催生了并发编程的趋势，并发编程的形式可以将多核CPU的计算能力发挥到极致，提高程序的性能 并发编程最佳实践先说说并发编程哪些缺点，或者说要注意些什么： 上下文切换时间片是CPU分配给各个线程的时间，因为时间非常短，所以CPU不断通过切换线程，让我们觉得多个线程是同时执行的，时间片一般是几十毫秒。 如果多个线程在并发执行任务的时候频繁地切换上下文，将无法发挥并发编程的优势，因为上下文的切换要保存当前状态，以便能够恢复先前状态，而上线文切换又非常损耗性能。 线程安全 多线程编程中最难以把握的就是临界区线程安全问题，稍微不注意就会出现死锁的情况，一旦产生死锁就会造成系统功能不可用。 如何保证线程安全 如何正确理解由于JMM内存模型在原子性，有序性，可见性带来的问题 数据脏读 DCL双重检车加锁 DCL双重检车加锁DCL双重检车加锁的真正问题在于：当没有同步的情况下读取一个共享对象时，读到的可能是一个尚未创建完成的对象，可能是一个失效的值。为什么要第二次判断呢？原因是当多个线程都经过了第一次判空之后，如果锁内不判空，就会导致实例被重复创建 对于可变对象必须通过安全的方式来发布，这通常意味着在发布和使用该对象时都必须使用同步，我们可以使用一下的方式来安全地发布对象： 参考链接 https://mp.weixin.qq.com/s?__biz=MzI4Njc5NjM1NQ==&amp;mid=2247485326&amp;idx=1&amp;sn=62ef70c9baac6ccaec385b519cdbdb6c&amp;chksm=ebd638a2dca1b1b4bc38d6add52c26d0c8d96021fcf0eae18a911abbb32c6b2d33b2af177d60&amp;mpshare=1&amp;scene=23&amp;srcid=0509oLVaS1l1ByXNHBg7zUI1%23rd 《Java并发编程实战》3.5.3，16.2.4]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Concurrent</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+        <tag>Concurrent</tag>
+        <tag>并发</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Java线程池相关问题]]></title>
+    <url>%2F2018%2F05%2F08%2FJava%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[概述在任务队列长度有限的情况下就会出现新任务的拒绝处理问题，需要有一种策略来处理应该加入任务队列却因为队列已满无法加入的情况；在线程池关闭的时候也需要对任务加入队列操作进行额外的协调处理 Java线程池任务拒绝策略RejectedExecutionHandler提供了四种方式来处理任务拒绝策略 直接丢弃（DiscardPolicy） 丢弃队列中最老的任务(DiscardOldestPolicy)。 抛异常(AbortPolicy) 将任务分给调用线程来执行(CallerRunsPolicy)。 ExecutorService类图 ThreadPoolExecutor类图 参考链接https://blog.csdn.net/u010412719/article/details/52132613 http://www.importnew.com/19011.html http://www.importnew.com/27305.html https://www.cnblogs.com/dolphin0520/p/3949310.html]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>ThreadPool</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Thread</tag>
+        <tag>ThreadPool</tag>
+        <tag>Executer</tag>
+        <tag>ExecuterService</tag>
+        <tag>BlockingQueue</tag>
+        <tag>任务拒绝策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ActiveMQ相关问题]]></title>
+    <url>%2F2018%2F05%2F08%2FActiveMQ%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[概述 消息传递方式P2P点对点 消息可以被同步或异步的发送和接收，每个消息只会给一个 Consumer 传送一次 多个 Consumer 可以注册到同一个 queue 上，但一个消息只能被一个 Consumer 所接收 P2P模式下，queue的大小默认是多少，可以调整吗？Pub/Sub 发布/订阅 除非显式指定，否则 topic 不会为订阅者保留消息 持久化订阅者重新连接 (对于Topic而言，一条消息只有所有的订阅者都消费才会被删除 ActiveMQ优化GitHub地址源码地址 参考链接https://mp.weixin.qq.com/s?__biz=MzA3ODQ0Mzg2OA==&amp;mid=2649047618&amp;idx=1&amp;sn=f14a50c42f07e263a4e8c3eef0543e6b&amp;chksm=87534671b024cf67dcea059f2fddbe408c1cf56b1687e18c3f2f9aec15a34284c2d38de67c8d&amp;mpshare=1&amp;scene=23&amp;srcid=0508MUi5BoS2wAQvewIzzOdp%23rd https://blog.csdn.net/java20150326/article/details/72084657https://blog.csdn.net/u012758088/article/details/78046108http://shift-alt-ctrl.iteye.com/blog/2061859]]></content>
+      <categories>
+        <category>JMS</category>
+      </categories>
+      <tags>
+        <tag>JMS</tag>
+        <tag>ActiveMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[八皇后问题]]></title>
+    <url>%2F2018%2F05%2F08%2F%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[概述 什么是八皇后问题？ 八皇后问题的难点是什么？ 如何实现？-源码 背景如何能够在8×8的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上 难点有哪些递归回溯法 所谓递归回溯，本质上是一种枚举法。这种方法从棋盘的第一行开始尝试摆放第一个皇后，摆放成功后，递归一层，再遵循规则在棋盘第二行来摆放第二个皇后。如果当前位置无法摆放，则向右移动一格再次尝试，如果摆放成功，则继续递归一层，摆放第三个皇后…… 12345678910111213141516private static boolean settleQueen(int r)&#123; if (r == row)&#123; // 为最后一行设置Queen时返回true，因为这行的结果不会影响其他的行 return true; &#125; for (int index = 0; index &lt; col; index++)&#123; // 从第一列遍历到最后一列 // 当前行元素都清零,为回溯做铺垫 clearRow(r); if (check(r, index))&#123; chess[r][index] = 1; if (settleQueen(r + 1))&#123;// 递归,如果返回false则回溯 return true; &#125; &#125; &#125; return false;&#125; 如何判断某个格子的斜线上是否已经存在Queen 同一条斜线上的元素的索引的和相等,或者同一条斜线上的元素的索引的差相等 1234567891011121314151617181920private static boolean check(int i, int j)&#123; int sum = i + j; // 同一条斜线上的元素的索引的和相等 int sub = i - j; // 或者 同一条斜线上的元素的索引的差相等 for (int m = sum &gt;= row ? row - 1 : sum; m &gt;= 0 &amp;&amp; sum - m &lt; col; m--)&#123; if (chess[m][sum - m] == 1)&#123; return false; &#125; &#125; for (int m = sub &lt;= 0 ? 0 : sub; m &lt; row &amp;&amp; m - sub &lt; row; m++)&#123; if (chess[m][m - sub] == 1)&#123; return false; &#125; &#125; for (int m = 0; m &lt; row; m++)&#123; if (chess[m][j] == 1)&#123; return false; &#125; &#125; return true;&#125; GitHub地址源码地址 参考链接https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&amp;mid=2653193309&amp;idx=1&amp;sn=dd68a60873bb360e02afde21acde7d3f&amp;chksm=8c99f687bbee7f91049c253dd3193c9a60d6d98cd315b0140a8635b2d34933b54a19127921a9&amp;mpshare=1&amp;scene=23&amp;srcid=0508U4Oiadttnnqx96Es30nZ%23rd https://blog.csdn.net/friendan/article/details/8809089]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[RPC与RMI的区别]]></title>
+    <url>%2F2018%2F05%2F07%2FRPC%E4%B8%8ERMI%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[概述 使用JDK原生RMI框架 参考连接https://blog.csdn.net/xiaominthere/article/details/46501505https://blog.csdn.net/shan9liang/article/details/8995023]]></content>
+      <categories>
+        <category>RPC</category>
+        <category>RMI</category>
+      </categories>
+      <tags>
+        <tag>RPC</tag>
+        <tag>RMI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Dubbo框架常见问题]]></title>
+    <url>%2F2018%2F05%2F07%2FDubbo%E6%A1%86%E6%9E%B6%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[概述 常见问题默认使用的是什么通信框架，还有别的选择吗?答： Dubbo默认使用Dubbo协议，而Dubbo协议使用基于mina + hessian的tbremoting交互；除此之外Dubbo还可以选择: 采用JDK标准的java.rmi.*实现的rmi协议，它采用阻塞式短连接和JDK标准序列化方式 hessian协议，底层采用HTTP通信，采用Servlet暴露服务，默认内嵌Jetty作为服务器实现 基于HTTP表单的远程调用协议，采用Spring的HttpInvoker实现 基于webservice的远程调用协议，基于Apache CXF的fronted-simple和transports-http、基于原生thrift协议的扩展，比如协议头添加额外字段 基于memcached实现的RPC协议 基于Redis实现的RPC协议 参考链接Dubbo用户手册（中文）9 协议参考手册 ALIBABA DUBBO框架同步调用原理分析www.blogjava.net/xiaomage234/archive/2014/05/09/413465.html]]></content>
+      <categories>
+        <category>Dubbo</category>
+      </categories>
+      <tags>
+        <tag>RPC</tag>
+        <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于ArrayList、LinkedList序列化问题]]></title>
+    <url>%2F2018%2F05%2F04%2F%E5%85%B3%E4%BA%8EArrayList%E3%80%81LinkedList%E5%BA%8F%E5%88%97%E5%8C%96%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[在序列化过程中，虚拟机会试图调用对象类里的 writeObject 和 readObject 方法，进行用户自定义的序列化和反序列化，如果没有这样的方法，则默认调用&gt; 是 ObjectOutputStream 的 defaultWriteObject 方法以及 ObjectInputStream 的 defaultReadObject 方法。用户自定义的 writeObject &gt; &gt; 和 readObject 方法可以允许用户控制序列化的过程，比如可以在序列化的过程中动态改变序列化的数值。基于这个原理，可以在实际应用中得到使用，用于敏感&gt; 字段的加密工作，清单 3 展示了这个过程。 参考链接https://www.ibm.com/developerworks/cn/java/j-lo-serial/index.htmlhttps://blog.csdn.net/qfycc92/article/details/45370011https://blog.csdn.net/u014634338/article/details/78165127]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Collections</category>
+        <category>List</category>
+      </categories>
+      <tags>
+        <tag>List</tag>
+        <tag>ArrayList</tag>
+        <tag>LinkedList</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多道程序设计、进程、线程]]></title>
+    <url>%2F2018%2F05%2F03%2F%E5%A4%9A%E9%81%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%81%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[概要 什么是多道程序设计？ 什么是进程？ 什么是线程？ 为什么要使用多线程而不是多进程？ text ../hello-world 参考链接]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>进程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[markdown+gravizo画UML类图]]></title>
+    <url>%2F2018%2F04%2F28%2Fmarkdown-gravizo%E7%94%BBUML%E7%B1%BB%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[1. 将请求参数进行url编码2. 不需要编码使用&lt;&gt;将网址括起来 本文不对plantUML的语法进行解释，直接戳。 对url进行编码需要编码的字符如下123abstract class AbstractList;interface List;List &lt;|.. AbstractList; 使用在线编码网站提供的服务，直接戳 编码后的代码如下：1abstract%20class%20AbstractList%3B%0Ainterface%20List%3B%0AList%20%3C%7C..%20AbstractList%3B 请求的url为：1http://g.gravizo.com/svg?abstract%20class%20AbstractList%3B%0Ainterface%20List%3B%0AList%20%3C%7C..%20AbstractList%3B 在markdown文件中使用：1![示例1](http://g.gravizo.com/svg?abstract%20class%20AbstractList%3B%0Ainterface%20List%3B%0AList%20%3C%7C..%20AbstractList%3B) 结果如下： 使用python的库urllib进行编码 打开终端 输入python,显示结果如下： 12345$ pythonPython 2.7.10 (default, Jul 14 2015, 19:46:27)[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwinType &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.&gt;&gt;&gt; 引入urllib库:import urllib 为变量raw赋值：raw = ‘’’abstract class AbstractList;interface List;List &lt;|.. AbstractList;’’’ 使用urllib的quote()方法:urllib.quote(raw)，将得到如下的结果:123456789&gt;&gt;&gt; import urllib&gt;&gt;&gt; raw = &apos;&apos;&apos;... abstract class AbstractList;... interface List;... List &lt;|.. AbstractList;... &apos;&apos;&apos;&gt;&gt;&gt; urllib.quote(raw)&apos;%0Aabstract%20class%20AbstractList%3B%0Ainterface%20List%3B%0AList%20%3C%7C..%20AbstractList%3B%0A&apos;&gt;&gt;&gt; 得到结果与gravizo的网址组合在一起，如下：1http://g.gravizo.com/svg?%0Aabstract%20class%20AbstractList%3B%0Ainterface%20List%3B%0AList%20%3C%7C..%20AbstractList%3B%0A 在markdown文件中使用：1![示例2](http://g.gravizo.com/svg?%0Aabstract%20class%20AbstractList%3B%0Ainterface%20List%3B%0AList%20%3C%7C..%20AbstractList%3B%0A) 结果如下： 不需要编码使用&lt;&gt;将网址括起来沿用上面的字符如下123abstract class AbstractList;interface List;List &lt;|.. AbstractList; 在markdown中使用1![示例3](&lt;http://g.gravizo.com/g?abstract class AbstractList;interface List;List &lt;|.. AbstractList;&gt;) 注意&lt;&gt;中的url连接不能有回车符号，但可以有空格 UML类图各线条怎么表示继承1234child --|&gt; parent![继承](http://g.gravizo.com/svg?Child --|&gt; Parent;)or ![继承](http://g.gravizo.com/svg?Parent &lt;|-- Child;) or 实现接口1234ServiceImpl ..|&gt; Service![实现接口](http://g.gravizo.com/svg?ServiceImpl ..|&gt; interface Service;)or![实现接口](http://g.gravizo.com/svg?nterface Service &lt;|.. ServiceImpl;) or 关联12Class09 -- Class10![关联](http://g.gravizo.com/svg?Class09 -- Class10) 依赖12Class13 --&gt; Class14![依赖](http://g.gravizo.com/svg?Class13 --&gt; Class14) 组合1234567Person1 --* Hand1orPerson --* Hand : 2 contains 1 &lt;eg: ![组合](http://g.gravizo.com/svg?Person *-- Hand : 1 contains 2 &gt;;Person1 --* Hand1)or![组合](http://g.gravizo.com/svg?Person --* Hand : 2 contains 1 &lt;;Person1 --* Hand1) or 聚合1234567Wheel : 1 have 4 &gt;orCar1 "1" o-- "4" Wheel1eg: ![聚合](http://g.gravizo.com/svg?Car o-- Wheel : 1 have 4 &gt;;Car o-- Wheel)or![聚合](http://g.gravizo.com/svg?Wheel1 --o Car1 : 4 have 1 &lt;;Wheel1 --o Car1) or 参考链接 Markdown 绘制 UML 图 -- PlantUML + Gravizoblog.csdn.net/heqiangflytosky/article/details/77050849 Markdown 绘制 UML 图 -- PlantUML + Gravizowww.heqiangfly.com/2017/07/08/development-tool-markdown-plant-uml URL Decoder/Encodermeyerweb.com/eric/tools/dencoder plantUML online editorwww.plantuml.com/plantuml/uml/SoWkIImgAStDuGh9BCb9LL1wldlviyxzJritFz-y--diVKfSReab6Qb52ZOrkheAmVbvN0wfUIb0zG00 https://www.ibm.com/support/knowledgecenter/zh/SS4JE2_7.5.5/com.ibm.xtools.modeler.doc/topics/cassn.html?pos=2]]></content>
+      <categories>
+        <category>Markdown</category>
+        <category>画图</category>
+        <category>UML类图</category>
+      </categories>
+      <tags>
+        <tag>UML</tag>
+        <tag>类图</tag>
+        <tag>Markdown</tag>
+        <tag>plantUML</tag>
+        <tag>gravizo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LinkedList]]></title>
+    <url>%2F2018%2F04%2F28%2FLinkedList%2F</url>
+    <content type="text"><![CDATA[1. java中LinkedList是单链表实现还是双链表实现？2. java中LinkedList节点元素的结构是怎样的？3. java中LinkedList的get（int index）方法是如何实现的？以及add（）方法是如何实现的？ java中LinkedList是单链表实现还是双链表实现？java中LinkedList节点元素的结构是怎样的？1234567891011private static class Node&lt;E&gt; &#123; E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123; this.item = element; this.next = next; this.prev = prev; &#125;&#125; 以上diamante截取自jdk8的LinkedList类，它是LinkedList类中节点元素，可以看出java中LinkedList是双链表实现的，因为静态内部类Node有两个指针，一个指向父节点，一个指向子节点（问题1，2自解） java中LinkedList的get（int index）方法是如何实现的？以及add（）方法是如何实现的？123456789101112131415161718192021222324252627282930313233343536373839404142public boolean add(E e) &#123; linkLast(e); return true;&#125; public void add(int index, E element) &#123; checkPositionIndex(index); if (index == size) linkLast(element); else linkBefore(element, node(index));&#125;void linkBefore(E e, Node&lt;E&gt; succ) &#123; // assert succ != null; final Node&lt;E&gt; pred = succ.prev; final Node&lt;E&gt; newNode = new Node&lt;&gt;(pred, e, succ); succ.prev = newNode; if (pred == null) first = newNode; else pred.next = newNode; size++; modCount++;&#125;Node&lt;E&gt; node(int index) &#123; // assert isElementIndex(index); if (index &lt; (size &gt;&gt; 1)) &#123; Node&lt;E&gt; x = first; for (int i = 0; i &lt; index; i++) x = x.next; return x; &#125; else &#123; Node&lt;E&gt; x = last; for (int i = size - 1; i &gt; index; i--) x = x.prev; return x; &#125;&#125; 从上面这段代码可以看出，当调用LinkedList的add(E)方法插入元素时，默认插入链表的末尾；当调用LinkedList的add(int, E)方法在指定位置插入元素时，通过node(int index)方法遍历链表，找到该索引位置的元素节点（在查找时用到了折半的思想，当索引小于size的一半时从前向后遍历，否则从后向前遍历），然后做节点的插入 1234public E get(int index) &#123; checkElementIndex(index); return node(index).item;&#125; 从上面这段代码可以看出，java中LinkedList的get(int index)方法查询元素时，会通过node(int index)方法遍历链表找到对应位置的元素节点（上一段代码有给出node方法的源码），并返回其值 Java中LinkedList的UML类图]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Collections</category>
+        <category>List</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JDK</tag>
+        <tag>List</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[macOS系统使用hexo创建文章时自动用喜爱的编辑器打开]]></title>
+    <url>%2F2018%2F04%2F26%2FmacOS%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8hexo%E5%88%9B%E5%BB%BA%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E7%94%A8%E5%96%9C%E7%88%B1%E7%9A%84%E7%BC%96%E8%BE%91%E5%99%A8%E6%89%93%E5%BC%80%2F</url>
+    <content type="text"><![CDATA[在博客根目录下找到scripts文件夹，如果没有就创建该文件夹，在scripts文件夹中创建open.js,内容如下：12345var spawn = require(&apos;child_process&apos;).spawn;hexo.on(&apos;new&apos;, function(data)&#123; spawn(&apos;open&apos;, [&apos;-a&apos;, &apos;/Applications/Visual\ Studio\ Code.app&apos;, data.path]);&#125;); 当我们在博客根目录下使用终端新建文件时会使用VScode编辑器打开该文章，可以方便地进行编辑1hexo new article_name 参考链接 hexo new 后同步打开文章编辑器www.jianshu.com/p/4487d767e651 Nodejs进阶：如何玩转子进程（child_process）www.cnblogs.com/chyingp/p/node-learning-guide-child_process.html]]></content>
+      <tags>
+        <tag>Mac</tag>
+        <tag>Hexo</tag>
+        <tag>VScode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hashMap]]></title>
+    <url>%2F2018%2F04%2F26%2FhashMap%2F</url>
+    <content type="text"><![CDATA[概要关于HashMap的几个基本问题： hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap的工作原理hashMap的定义hashMap是一种散列表，根据key的hash值被散列到表的不同位置，如果发生hash冲突，冲突的元素会以链表的形式存储 put(K k, V v)查看put方法的源码，可以看出，hashMap是允许key为null的123public V put(K key, V value) &#123; return putVal(hash(key), key, value, false, true);&#125; 查看hash方法的源码，我们知道如果key为null，那么hash值是0，否则会调用key的hashCode方法计算key的hash值（这也是为什么要重写key的hashCode方法的原因），并将hash值与它的高16位进行异或操作1234static final int hash(Object key) &#123; int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);&#125; 当调用hashMap的put方法保存键值对时，通过hash方法重新计算key的hash值，如果hash值散列到散列表的索引处没有没有发生hash冲突，则将键值对保存即可,下面是putVal方法的代码片段12if ((p = tab[i = (n - 1) &amp; hash]) == null) tab[i] = newNode(hash, key, value, null); 如果发生hash冲突，判断hash值所对应的散列表位置的元素是不是TreeNode（jdk版本1.8），如果是，直接调用添加一个TreeNode节点，源码片段如下12else if (p instanceof TreeNode) e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value); 如果fa’shegn不是TreeNode， 参考资料Java中HashMap的UML类图]]></content>
+      <categories>
+        <category>JDK</category>
+        <category>Collections</category>
+        <category>Map</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JDK</tag>
+        <tag>Map</tag>
+        <tag>HashMap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F08%2F27%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. blog框架hexo,主题框架NexT Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment 标签插件（Tags Plugins)123&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;content&#123;% endblockquote %&#125; 参考链接https://hexo.io/zh-cn/docs/tag-plugins.html]]></content>
+  </entry>
+</search>
