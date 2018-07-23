@@ -237,7 +237,7 @@
   <entry>
     <title><![CDATA[ConcurrentHashMap 的工作原理及代码实现，如何统计所有的元素个数]]></title>
     <url>%2F2018%2F05%2F10%2FConcurrentHashMap-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%8C%E5%A6%82%E4%BD%95%E7%BB%9F%E8%AE%A1%E6%89%80%E6%9C%89%E7%9A%84%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[概述 ConcurrentHashMap在JDK7和JDK8中有什么不同？ 简述 参考链接]]></content>
   </entry>
   <entry>
     <title><![CDATA[HashMap出现Hash DOS攻击的问题]]></title>
@@ -594,7 +594,7 @@
   <entry>
     <title><![CDATA[hashMap]]></title>
     <url>%2F2018%2F04%2F26%2FhashMap%2F</url>
-    <content type="text"><![CDATA[概要关于HashMap的几个基本问题： hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap的工作原理hashMap的定义hashMap是一种散列表，根据key的hash值被散列到表的不同位置，如果发生hash冲突，冲突的元素会以链表的形式存储 put(K k, V v)查看put方法的源码，可以看出，hashMap是允许key为null的123public V put(K key, V value) &#123; return putVal(hash(key), key, value, false, true);&#125; 查看hash方法的源码，我们知道如果key为null，那么hash值是0，否则会调用key的hashCode方法计算key的hash值（这也是为什么要重写key的hashCode方法的原因），并将hash值与它的高16位进行异或操作1234static final int hash(Object key) &#123; int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);&#125; 当调用hashMap的put方法保存键值对时，通过hash方法重新计算key的hash值，如果hash值散列到散列表的索引处没有没有发生hash冲突，则将键值对保存即可,下面是putVal方法的代码片段12if ((p = tab[i = (n - 1) &amp; hash]) == null) tab[i] = newNode(hash, key, value, null); 如果发生hash冲突，判断hash值所对应的散列表位置的元素是不是TreeNode（jdk版本1.8），如果是，直接调用添加一个TreeNode节点，源码片段如下12else if (p instanceof TreeNode) e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value); 如果fa’shegn不是TreeNode， 参考资料Java中HashMap的UML类图]]></content>
+    <content type="text"><![CDATA[概要关于HashMap的几个基本问题： hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap在JDK7和JDK8中的区别是什么？ 简述HashMap的put方法的过程 简述HashMap的get方法的过程 在JDK7和JDK8中最大的区别就是JDK8优化了当发生严重hash冲突时的查询优化，当满足一定的条件，使用红黑树代替链表来存储数据 put方法的过程 判断数据是否为空，为空就resize 通过key的hashCode计算被映射的桶的索引，如果索引位置的桶内没有元素，就将数据保存到该位置 如果索引位置的桶内已经有元素了，判断该元素的key的hashCode是否与被插入的key的hashCode是否相等，以及key是否相等，如果相等，则替换值 如果不相等，再判断该节点是否是红黑树的节点，如果是，则调用添加树节点的方法插入数据 如果不是红黑树节点，则循环遍历链表，如果没有哪个节点元素的key与被插入key相等，则新增一个节点放在链表头，如果某个元素的key等于被插入的key，就替换它的值 hashMap的工作原理hashMap的定义hashMap是一种散列表，根据key的hash值被散列到表的不同位置，如果发生hash冲突，冲突的元素会以链表的形式存储 put(K k, V v)查看put方法的源码，可以看出，hashMap是允许key为null的123public V put(K key, V value) &#123; return putVal(hash(key), key, value, false, true);&#125; 查看hash方法的源码，我们知道如果key为null，那么hash值是0，否则会调用key的hashCode方法计算key的hash值（这也是为什么要重写key的hashCode方法的原因），并将hash值与它的高16位进行异或操作1234static final int hash(Object key) &#123; int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);&#125; 当调用hashMap的put方法保存键值对时，通过hash方法重新计算key的hash值，如果hash值散列到散列表的索引处没有没有发生hash冲突，则将键值对保存即可,下面是putVal方法的代码片段12if ((p = tab[i = (n - 1) &amp; hash]) == null) tab[i] = newNode(hash, key, value, null); 如果发生hash冲突，判断hash值所对应的散列表位置的元素是不是TreeNode（jdk版本1.8），如果是，直接调用添加一个TreeNode节点，源码片段如下12else if (p instanceof TreeNode) e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value); 如果fa’shegn不是TreeNode， 参考资料Java中HashMap的UML类图]]></content>
       <categories>
         <category>JDK</category>
         <category>Collections</category>
