@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="scutuyu">
 <meta property="og:description" content="概述你会知道如何安装redis, ruby, rubygems如何解决gem安装依赖慢甚至失败的问题如何用gem安装redis">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-23T07:46:50.000Z">
+<meta property="og:updated_time" content="2018-07-25T02:03:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis集群搭过程">
 <meta name="twitter:description" content="概述你会知道如何安装redis, ruby, rubygems如何解决gem安装依赖慢甚至失败的问题如何用gem安装redis">
@@ -357,8 +357,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-07-23T15:46:50+08:00" content="2018-07-23">
-                2018-07-23
+              <time itemprop="dateUpdated" datetime="2018-07-25T10:03:38+08:00" content="2018-07-25">
+                2018-07-25
               </time>
             </span>
           
@@ -446,10 +446,16 @@
 </ul>
 <h1 id="Redis客户端的使用"><a href="#Redis客户端的使用" class="headerlink" title="Redis客户端的使用"></a>Redis客户端的使用</h1><h2 id="redis-cli"><a href="#redis-cli" class="headerlink" title="redis-cli"></a><code>redis-cli</code></h2><p>直接在终端输入redis-cli默认连接的是127.0.0.1:6379,如果在本地6379端口没有启动redis实例，将会报错<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@tuyu redis]<span class="comment"># redis-cli</span></span><br><span class="line">Could not connect to Redis at 127.0.0.1:6379: Connection refused</span><br><span class="line">Could not connect to Redis at 127.0.0.1:6379: Connection refused</span><br><span class="line">not connected&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="redis-cli-p-7000"><a href="#redis-cli-p-7000" class="headerlink" title="redis-cli -p 7000"></a><code>redis-cli -p 7000</code></h2><p>前提：<br>本地在7000-7005端口分别启了一个redis实例，并将这些redis实例组成了一个redis集群<br>连接本地7000端口的redis实例<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@tuyu redis]<span class="comment"># redis-cli -p 7000</span></span><br><span class="line">127.0.0.1:7000&gt;</span><br></pre></td></tr></table></figure></p>
-<p>看看redis实例中有多少数据，该方式只能查看本实例的所有数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:7000&gt; keys *</span><br><span class="line">(empty list or <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure></p>
-<p>没有数据，我们插入数据name=’tuyu’<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:7000&gt; <span class="built_in">set</span> name tuyu</span><br><span class="line">(error) MOVED 5798 127.0.0.1:7001</span><br></pre></td></tr></table></figure></p>
-<p>显然报错了，原因是name通过CRC16哈希算法得到的值与16384取模的结果正好在7001端口所在的redis实例，所以不允许设置，需要访问集群中7001这个节点</p>
-<p>如果使用下面的方法连接</p>
+<p>以集群的方式连接redis服务器<br><code>redis-cli -c -h 127.0.0.1 -p 7001</code></p>
+<p>redis服务器的模式有三种</p>
+<ul>
+<li>主从模式</li>
+<li>哨兵模式</li>
+<li>集群模式</li>
+</ul>
+<p>主从模式，常见的有一主一从，一主多从<br>主从模式的好处是：数据备份，读写分离，解决了流量瓶颈问题<br>主从模式的缺点是：不能解决故障迁移问题</p>
+<p>哨兵模式，在主从模式的基础上，额外起技术哥哨兵进程，让哨兵进程监视主节点，当主节点宕机后，通过投票机制选举一个从节点替代宕机的主节点，并让其他的从节点作为新的主节点的从节点<br>哨兵模式的好处是：解决了主从模式没有解决的故障自动迁移的问题<br>哨兵模式的缺点是：从节点下线了，不会对其进行故障迁移的</p>
+<p>集群模式，将key映射到16384个hash槽里，集群中每个节点都分配部分hash槽，当客户端连接集群中的某个节点，并执行操作时，通过一致的hash算法，计算书key所对应的hash并对16384取模，再用得到的结果去映射到具体的集群节点，如果不是当前节点，操作将被重定向到具体的节点，redis集群是去中心化的，所有节点都是平等的，集群间通信使用goossip协议，为解决集群中某个节点下线后，对应的hash槽不可用的情况，可以为集群中的所有节点都设置一至多个从节点，当主节点下线后，从节点替代主节点<br>集群模式的好处是：解决了单机内存限制，解决了流量瓶颈问题<br>集群模式的缺点是：当某个节点与它的所有从节点都下线后，它所处理的hash槽都不可用了，需要人工介入，从新分配hash槽</p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://www.jianshu.com/p/c869feb5581d" target="_blank" rel="noopener">https://www.jianshu.com/p/c869feb5581d</a></p>
 <p><a href="https://ruby.taobao.org/" target="_blank" rel="noopener">https://ruby.taobao.org/</a></p>
 <p><a href="http://weizijun.cn/2016/01/08/redis%20cluster%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7redis-trib-rb%E8%AF%A6%E8%A7%A3/" target="_blank" rel="noopener">http://weizijun.cn/2016/01/08/redis%20cluster%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7redis-trib-rb%E8%AF%A6%E8%A7%A3/</a></p>

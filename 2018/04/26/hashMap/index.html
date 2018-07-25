@@ -95,19 +95,19 @@
 
 
 
-<meta name="description" content="概要关于HashMap的几个基本问题：  hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap在JDK7和JDK8中的区别是什么？ 简述HashMap的put方法的过程 简述HashMap的get方法的过程">
+<meta name="description" content="概要关于HashMap的几个基本问题：  hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap在JDK7和JDK8中的区别是什么？ 简述HashMap的put方法的过程 简述HashMap的get方法的过程 什么时候会使用HashMap？他有什么特点？ 你知道Has">
 <meta name="keywords" content="Java,JDK,Map,HashMap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hashMap">
 <meta property="og:url" content="http://scutuyu.com/2018/04/26/hashMap/index.html">
 <meta property="og:site_name" content="scutuyu">
-<meta property="og:description" content="概要关于HashMap的几个基本问题：  hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap在JDK7和JDK8中的区别是什么？ 简述HashMap的put方法的过程 简述HashMap的get方法的过程">
+<meta property="og:description" content="概要关于HashMap的几个基本问题：  hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap在JDK7和JDK8中的区别是什么？ 简述HashMap的put方法的过程 简述HashMap的get方法的过程 什么时候会使用HashMap？他有什么特点？ 你知道Has">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://g.gravizo.com/svg?interface Map; abstract class AbstractMap;Map <|.. AbstractMap;AbstractMap <|-- HashMap;Map <|.. HashMap;">
-<meta property="og:updated_time" content="2018-07-23T14:57:12.000Z">
+<meta property="og:updated_time" content="2018-07-25T03:37:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hashMap">
-<meta name="twitter:description" content="概要关于HashMap的几个基本问题：  hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap在JDK7和JDK8中的区别是什么？ 简述HashMap的put方法的过程 简述HashMap的get方法的过程">
+<meta name="twitter:description" content="概要关于HashMap的几个基本问题：  hashMap的工作原理？ hashMap可以接收key为null的键值对吗？hashTable可以接收key为null的键值对吗？ hashMap的负载因子是做什么的？ hashMap在JDK7和JDK8中的区别是什么？ 简述HashMap的put方法的过程 简述HashMap的get方法的过程 什么时候会使用HashMap？他有什么特点？ 你知道Has">
 <meta name="twitter:image" content="http://g.gravizo.com/svg?interface Map; abstract class AbstractMap;Map <|.. AbstractMap;AbstractMap <|-- HashMap;Map <|.. HashMap;">
 
 
@@ -359,8 +359,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-07-23T22:57:12+08:00" content="2018-07-23">
-                2018-07-23
+              <time itemprop="dateUpdated" datetime="2018-07-25T11:37:11+08:00" content="2018-07-25">
+                2018-07-25
               </time>
             </span>
           
@@ -445,17 +445,35 @@
 <li>hashMap在JDK7和JDK8中的区别是什么？</li>
 <li>简述HashMap的put方法的过程</li>
 <li>简述HashMap的get方法的过程</li>
+<li>什么时候会使用HashMap？他有什么特点？</li>
+<li>你知道HashMap的工作原理吗？</li>
+<li>你知道get和put的原理吗？equals()和hashCode()的都有什么作用？</li>
+<li>你知道hash的实现吗？为什么要这样实现？</li>
+<li>如果HashMap的大小超过了负载因子(load factor)定义的容量，怎么办？</li>
 </ol>
 <a id="more"></a>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><ul>
+<li>什么时候会使用HashMap？他有什么特点？<br>需要保存key-value形式的键值对时，需要要使用HashMap，或者我们希望通过key快速查询到它所对应的value时，就会使用HashMap<br>HashMap的特点：将key散列到表中，使用key的散列值查询元素，理想情况下，查询元素的时间复杂度是常数级别；通常情况下，保存key、value时，如果需要保存的key已经存在于散列表中，后面的值会覆盖前面的值；HashMap的键和值都允许是null，HashMap保存元素的最大值是Integer.MAX_VALUE；</li>
+</ul>
 <h1 id="在JDK7和JDK8中最大的区别就是"><a href="#在JDK7和JDK8中最大的区别就是" class="headerlink" title="在JDK7和JDK8中最大的区别就是"></a>在JDK7和JDK8中最大的区别就是</h1><p>JDK8优化了当发生严重hash冲突时的查询优化，当满足一定的条件，使用红黑树代替链表来存储数据</p>
+<h1 id="HashMap的工作原理"><a href="#HashMap的工作原理" class="headerlink" title="HashMap的工作原理"></a>HashMap的工作原理</h1><p>HashMap的工作原理就是通过计算key的hash值，将key、value保存到对应的hash桶中，如果发生hash冲突，就用链表的方式将这些key、value连接起来；<br>访问某个key、value时，同样的方式，先计算key的hash值，从而定位key、value所在的hash桶</p>
 <h1 id="put方法的过程"><a href="#put方法的过程" class="headerlink" title="put方法的过程"></a>put方法的过程</h1><ol>
-<li>判断数据是否为空，为空就resize</li>
-<li>通过key的hashCode计算被映射的桶的索引，如果索引位置的桶内没有元素，就将数据保存到该位置</li>
-<li>如果索引位置的桶内已经有元素了，判断该元素的key的hashCode是否与被插入的key的hashCode是否相等，以及key是否相等，如果相等，则替换值</li>
+<li>判断数据是否为空，为空就resize，resize方法中包含了HashMap的初始化代码</li>
+<li>通过hash方法计算key的hash值，确定桶的位置，如果索引位置的桶内元素为空，就将数据保存到该位置</li>
+<li>如果桶内已经有元素了，判断该元素的key的hash是否与被插入的key的hash是否相等，以及key是否相等，如果相等，则替换值</li>
 <li>如果不相等，再判断该节点是否是红黑树的节点，如果是，则调用添加树节点的方法插入数据</li>
-<li>如果不是红黑树节点，则循环遍历链表，如果没有哪个节点元素的key与被插入key相等，则新增一个节点放在链表头，如果某个元素的key等于被插入的key，就替换它的值</li>
+<li>如果不是红黑树节点，则循环遍历链表，找到与key相等的节点就覆盖它的值，反之，则新增一个节点，链在链表的后面</li>
+<li>在判断链表长度是否超过TREEFIY_THRESHOLD的值，如果超过了，就将链表树形化，</li>
+<li>最后判断HashMap的容量是否超过了threshold, 如果超过了，就扩容</li>
 </ol>
-<h1 id="hashMap的工作原理"><a href="#hashMap的工作原理" class="headerlink" title="hashMap的工作原理"></a>hashMap的工作原理</h1><h2 id="hashMap的定义"><a href="#hashMap的定义" class="headerlink" title="hashMap的定义"></a>hashMap的定义</h2><p>hashMap是一种散列表，根据key的hash值被散列到表的不同位置，如果发生hash冲突，冲突的元素会以链表的形式存储</p>
+<h1 id="get方法的过程"><a href="#get方法的过程" class="headerlink" title="get方法的过程"></a>get方法的过程</h1><ol>
+<li>如果HashMap中的table为空，或者key经过hash方法计算后的hash值所映射的桶为空，就返回空</li>
+<li>反之，则判断桶里的元素的key的hash值、key值是否相等，如果相等，直接返回该元素</li>
+<li>如果不相等，则判断该元素的下一个节点是否为空，如果为空，则返回空，如果不为空</li>
+<li>则判断桶中的元素是否是TreeNode，如果是，则调用获取树节点的方法返回数据</li>
+<li>反之，则遍历链表</li>
+</ol>
+<h2 id="hashMap的定义"><a href="#hashMap的定义" class="headerlink" title="hashMap的定义"></a>hashMap的定义</h2><p>hashMap是一种散列表，根据key的hash值被散列到表的不同位置，如果发生hash冲突，冲突的元素会以链表的形式存储</p>
 <h2 id="put-K-k-V-v"><a href="#put-K-k-V-v" class="headerlink" title="put(K k, V v)"></a>put(K k, V v)</h2><p>查看put方法的源码，可以看出，hashMap是允许key为null的<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>查看hash方法的源码，我们知道如果key为null，那么hash值是0，否则会调用key的hashCode方法计算key的hash值（这也是为什么要重写key的hashCode方法的原因），并将hash值与它的高16位进行异或操作<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>当调用hashMap的put方法保存键值对时，通过hash方法重新计算key的hash值，如果hash值散列到散列表的索引处没有没有发生hash冲突，则将键值对保存即可,下面是putVal方法的代码片段<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">    tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure></p>
@@ -647,7 +665,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在JDK7和JDK8中最大的区别就是"><span class="nav-number">2.</span> <span class="nav-text">在JDK7和JDK8中最大的区别就是</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#put方法的过程"><span class="nav-number">3.</span> <span class="nav-text">put方法的过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashMap的工作原理"><span class="nav-number">4.</span> <span class="nav-text">hashMap的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hashMap的定义"><span class="nav-number">4.1.</span> <span class="nav-text">hashMap的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put-K-k-V-v"><span class="nav-number">4.2.</span> <span class="nav-text">put(K k, V v)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">2.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在JDK7和JDK8中最大的区别就是"><span class="nav-number">3.</span> <span class="nav-text">在JDK7和JDK8中最大的区别就是</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap的工作原理"><span class="nav-number">4.</span> <span class="nav-text">HashMap的工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#put方法的过程"><span class="nav-number">5.</span> <span class="nav-text">put方法的过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#get方法的过程"><span class="nav-number">6.</span> <span class="nav-text">get方法的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hashMap的定义"><span class="nav-number">6.1.</span> <span class="nav-text">hashMap的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#put-K-k-V-v"><span class="nav-number">6.2.</span> <span class="nav-text">put(K k, V v)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
