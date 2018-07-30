@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="scutuyu">
 <meta property="og:description" content="概述 Queue定义了哪些方法，是否允许添加null Deque定义了哪些方法，是否允许添加null BlockingQueue定义了哪些方法，是否允许添加null">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-26T08:18:25.000Z">
+<meta property="og:updated_time" content="2018-07-26T13:32:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="queue">
 <meta name="twitter:description" content="概述 Queue定义了哪些方法，是否允许添加null Deque定义了哪些方法，是否允许添加null BlockingQueue定义了哪些方法，是否允许添加null">
@@ -356,7 +356,7 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-07-26T16:18:25+08:00" content="2018-07-26">
+              <time itemprop="dateUpdated" datetime="2018-07-26T21:32:19+08:00" content="2018-07-26">
                 2018-07-26
               </time>
             </span>
@@ -407,7 +407,7 @@
 <p>覆盖了element方法，Queue空时抛异常<br>新增getFirst方法，Queue空时抛异常<br>新增getLast方法，Queue空时抛异常</p>
 <p>覆盖了peek方法，Queue空时返回null<br>新增peekFirst方法，Queue空时返回null<br>新增peekLast方法，Queue空时返回null</p>
 <p>新增pop方法，Queue空时抛异常<br>新增push方法，Queue满了抛异常</p>
-<h1 id="BlockingQueue定义了以下方法："><a href="#BlockingQueue定义了以下方法：" class="headerlink" title="BlockingQueue定义了以下方法："></a>BlockingQueue定义了以下方法：</h1><p>BlockingQueue继承Queue，阻塞队列在获取元素时如果队列为空，就等待队列非空，在添加元素时如果队列已满，就等待队列有剩余空间，BlockingQueue的大多数添加删除方法都是线程安全的，除了addAll, retainAll, containsAll, removeAll之外</p>
+<h1 id="BlockingQueue定义了以下方法："><a href="#BlockingQueue定义了以下方法：" class="headerlink" title="BlockingQueue定义了以下方法："></a>BlockingQueue定义了以下方法：</h1><p>BlockingQueue继承Queue，阻塞队列在获取元素时如果队列为空，就等待队列非空，在添加元素时如果队列已满，就等待队列有剩余空间，BlockingQueue的大多数添加删除方法都是线程安全的，除了addAll, retainAll, containsAll, removeAll之外，不允许添加null元素</p>
 <p>覆盖了add方法，Queue满了抛异常<br>覆盖了offer方法，Queue满了返回false<br>新增put方法，Queue满了就阻塞<br>重载了offer方法，Queue满了就阻塞指定时间</p>
 <p>新增take方法，Queue空时就阻塞<br>重载了poll方法，Queue空时就阻塞指定时间</p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1>
@@ -443,6 +443,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/30/Lock/" rel="prev" title="Lock">
+                Lock <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -521,7 +525,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">79</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
