@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="scutuyu">
 <meta property="og:description" content="概述工作中有这么个需求：前端请求后端数据时参数采用蛇形命名法,即：/xxxx?user_name=ty&amp;amp;user_age=12，后端返回的json数据要也要蛇形命名法，即：12345678&amp;#123;    &quot;user_name&quot;: &quot;tuyu&quot;,    &quot;user_age&quot;: 12,    &quot;address&quot;: &quot;xxxxx&quot;&amp;#125;需要做两件事：1. controller的方法的参">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-18T15:18:38.000Z">
+<meta property="og:updated_time" content="2018-12-19T14:28:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring mvc 自定义参数绑定，自定义数据返回格式">
 <meta name="twitter:description" content="概述工作中有这么个需求：前端请求后端数据时参数采用蛇形命名法,即：/xxxx?user_name=ty&amp;amp;user_age=12，后端返回的json数据要也要蛇形命名法，即：12345678&amp;#123;    &quot;user_name&quot;: &quot;tuyu&quot;,    &quot;user_age&quot;: 12,    &quot;address&quot;: &quot;xxxxx&quot;&amp;#125;需要做两件事：1. controller的方法的参">
@@ -357,8 +357,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-12-18T23:18:38+08:00" content="2018-12-18">
-                2018-12-18
+              <time itemprop="dateUpdated" datetime="2018-12-19T22:28:21+08:00" content="2018-12-19">
+                2018-12-19
               </time>
             </span>
           
@@ -435,6 +435,12 @@
 <li>同一个spring mvc项目中如果有多个继承<code>WebMvcConfigurationSupport</code>类的配置类，spring mvc框架只会让第一个被扫描的配置类生效，如果确实有多个配置类存在的必要，比如该项目：依赖了一个jar包，它里面用拦截器配置了一些统一认证的逻辑，而项目要配置自定义参数解析器等配置，这就会出现两个配置类，而依赖的jar包中的配置类我修改不了，能改的只有本项目的配置类。</li>
 </ol>
 <p>解决方法：<br>既然只能修改本项目的配置类，那么就可以让本项目的配置类（B）继承依赖jar包的配置类(A)，并在spring boot的启动类上加上注解排除依赖类的配置类（A）,即：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span>(exclude=A.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebApplication</span></span>&#123;</span><br><span class="line">    <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>swagger返回的json数据有这么一段:<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"$ref"</span>: <span class="string">"#/definitions/xxxxx"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>当我用fastjson转为Map时，由于$和#是特殊字符，转换发生了错误</p>
+<p>解决办法是：在转换前将特殊字符替换为特定的字符串，最后又将特定的字符串替换为特殊字符，eg:<br><code>jsonStr.replaceAll(&quot;\\$&quot;, &quot;DOLLAR&quot;).replaceAll(&quot;\\#&quot;, &quot;JING&quot;)</code></p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
 <li><a href="https://blog.csdn.net/u013815546/article/details/77248003" target="_blank" rel="noopener">spring validator手动校验</a></li>
 <li><a href="https://aisensiy.github.io/2017/09/18/jackson-practices/" target="_blank" rel="noopener">Jackson 在 Spring Boot 中的使用小结 1</a></li>
