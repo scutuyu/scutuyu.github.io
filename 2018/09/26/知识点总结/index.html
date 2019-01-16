@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="scutuyu">
 <meta property="og:description" content="概述 Java基础">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-26T12:42:00.000Z">
+<meta property="og:updated_time" content="2019-01-16T02:36:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知识点总结">
 <meta name="twitter:description" content="概述 Java基础">
@@ -356,8 +356,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2018-09-26T20:42:00+08:00" content="2018-09-26">
-                2018-09-26
+              <time itemprop="dateUpdated" datetime="2019-01-16T10:36:08+08:00" content="2019-01-16">
+                2019-01-16
               </time>
             </span>
           
@@ -420,7 +420,7 @@
 <h2 id="数组和链表数据结构描述，各自的时间复杂度。"><a href="#数组和链表数据结构描述，各自的时间复杂度。" class="headerlink" title="数组和链表数据结构描述，各自的时间复杂度。"></a>数组和链表数据结构描述，各自的时间复杂度。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">数组需要连续的内存空间，且在初始化时就指定了数组的大小，</span><br><span class="line">每个数组元素占用相同大小的内存，可以基于索引访问元素，</span><br><span class="line">访问的时间复杂度是1，随机插入和删除元素，需要涉及后面元素的移动，</span><br><span class="line">时间复杂度是n，</span><br><span class="line">链表不需要连续的内存空间，不需要在初始化时指定大小，</span><br><span class="line">可以动态增加元素的个数，访问元素时，需要从头节点开始遍历，</span><br><span class="line">时间复杂度是n，随机插入和删除节点，只需改变指针，时间复杂度是1</span><br></pre></td></tr></table></figure>
 <h2 id="error和exception的区别，CheckedException，RuntimeException的区别。"><a href="#error和exception的区别，CheckedException，RuntimeException的区别。" class="headerlink" title="error和exception的区别，CheckedException，RuntimeException的区别。"></a>error和exception的区别，CheckedException，RuntimeException的区别。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Error类一般指与虚拟机相关的异常，仅靠程序本身无法预防和恢复，建议终止程序，</span><br><span class="line">Exception类一般指程序可以处理的异常，可以通过try-catch块捕获异常并可能恢复</span><br><span class="line"></span><br><span class="line">所有方法都可以在不声明throws的情况下抛出RunTimeException、Error类及其子类</span><br><span class="line">不可以在不声明throws的情况下抛出受检异常</span><br></pre></td></tr></table></figure>
 <h2 id="请列出5个运行时异常。"><a href="#请列出5个运行时异常。" class="headerlink" title="请列出5个运行时异常。"></a>请列出5个运行时异常。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NullPointerException,</span><br><span class="line">IllegalMonitorStateException,</span><br><span class="line">IllegalArgumentException,</span><br><span class="line">IndexOutOfBondsException,</span><br><span class="line">ConcurrentModificationException</span><br></pre></td></tr></table></figure>
-<h2 id="在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。"><a href="#在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。" class="headerlink" title="在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。"></a>在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">不能被类加载器加载，首先是因为类加载器的双亲委派模型，java.lang.String类将由启动类加载器加载，</span><br><span class="line">而启动类加载器只会加载rt.jar包中的类，故不能将自定义的java.lang.String类加载到内存；</span><br><span class="line">即是是自定义类加载器，并覆盖defineClass方法，也不能加载自定义的java.lang.String类，</span><br><span class="line">因为自定义的类加载器都会继承抽象类ClassLoader,最终会调用它的preDefineClass方法，</span><br><span class="line">该方法有对类名的判断，如果是以java.开头，将会抛出SecurityException异常</span><br></pre></td></tr></table></figure>
+<h2 id="在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。"><a href="#在自己的代码中，如果创建一个java-lang-String类，这个类是否可以被类加载器加载？为什么。" class="headerlink" title="在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。"></a>在自己的代码中，如果创建一个java.lang.String类，这个类是否可以被类加载器加载？为什么。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">不能被类加载器加载，首先是因为类加载器的双亲委派模型，java.lang.String类将由启动类加载器加载，</span><br><span class="line">并返回系统的String类；</span><br><span class="line">即是是自定义类加载器，也不能加载自定义的java.lang.String类，自定义的类加载器会调用父类的defineClass</span><br><span class="line">模板方法，该方法会调用preDefineClass方法对类名进行判断，不允许类名以java.开头,将会抛出SecurityException异常</span><br></pre></td></tr></table></figure>
 <h2 id="说一说你对java-lang-Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。"><a href="#说一说你对java-lang-Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。" class="headerlink" title="说一说你对java.lang.Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。"></a>说一说你对java.lang.Object对象中hashCode和equals方法的理解。在什么场景下需要重新实现这两个方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">对hashCode和equals方法的理解，什么时候覆盖它们</span><br><span class="line">一般在散列表中会用到Object类的hashCode方法和equals方法，</span><br><span class="line">前者用来元素散列到不同的hash桶中，equals方法在发生hash冲突时判断两个元素</span><br><span class="line">是否相等</span><br><span class="line">如果父类的equals方法能满足需求，就不要轻易覆盖它们，</span><br><span class="line">当类提供了逻辑相等、类是向Integer这种值类或者需要作为散列集合的键时需要覆盖equals方法，</span><br><span class="line">当覆盖equals方法时，一定要覆盖hashCode方法，这是hashCode方法的通用约定（</span><br><span class="line">如果两个对象的equals方法返回ture，则他们的hashCode方法返回值一定相等）</span><br></pre></td></tr></table></figure>
 <h2 id="在jdk1-5中，引入了泛型，泛型的存在是用来解决什么问题。"><a href="#在jdk1-5中，引入了泛型，泛型的存在是用来解决什么问题。" class="headerlink" title="在jdk1.5中，引入了泛型，泛型的存在是用来解决什么问题。"></a>在jdk1.5中，引入了泛型，泛型的存在是用来解决什么问题。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 可以在编译期发现bug，而不是在运行期</span><br><span class="line">2. 提高代码的复用性</span><br></pre></td></tr></table></figure>
 <h2 id="这样的a-hashcode-有什么用，与a-equals-b-有什么关系。"><a href="#这样的a-hashcode-有什么用，与a-equals-b-有什么关系。" class="headerlink" title="这样的a.hashcode() 有什么用，与a.equals(b)有什么关系。"></a>这样的a.hashcode() 有什么用，与a.equals(b)有什么关系。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -619,7 +619,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
