@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="概述 ClassLoader相关知识 Map相关知识">
+<meta name="description" content="概述 ClassLoader相关知识 Map相关知识 HashSet">
 <meta name="keywords" content="Map,ClassLoader">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java知识总结">
 <meta property="og:url" content="http://scutuyu.com/2019/01/19/java知识总结/index.html">
 <meta property="og:site_name" content="scutuyu">
-<meta property="og:description" content="概述 ClassLoader相关知识 Map相关知识">
+<meta property="og:description" content="概述 ClassLoader相关知识 Map相关知识 HashSet">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-19T09:33:29.000Z">
+<meta property="og:updated_time" content="2019-01-26T16:41:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java知识总结">
-<meta name="twitter:description" content="概述 ClassLoader相关知识 Map相关知识">
+<meta name="twitter:description" content="概述 ClassLoader相关知识 Map相关知识 HashSet">
 
 
 
@@ -357,8 +357,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2019-01-19T17:33:29+08:00" content="2019-01-19">
-                2019-01-19
+              <time itemprop="dateUpdated" datetime="2019-01-27T00:41:42+08:00" content="2019-01-27">
+                2019-01-27
               </time>
             </span>
           
@@ -415,26 +415,30 @@
       
         <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ol>
 <li>ClassLoader相关知识</li>
-<li>Map相关知识<a id="more"></a>
+<li>Map相关知识</li>
+<li>HashSet<a id="more"></a>
 </li>
 </ol>
 <h1 id="ClassLoader相关知识"><a href="#ClassLoader相关知识" class="headerlink" title="ClassLoader相关知识"></a>ClassLoader相关知识</h1><h2 id="ClassLoader是什么？"><a href="#ClassLoader是什么？" class="headerlink" title="ClassLoader是什么？"></a>ClassLoader是什么？</h2><p>负责加载class文件的类，通过全限定类名或者字节数组生成class对象</p>
-<h2 id="ClassLoader分类"><a href="#ClassLoader分类" class="headerlink" title="ClassLoader分类"></a>ClassLoader分类</h2><p>站在jvm的角度，分为启动类加载器和其他类加载器，其他类加载器又<br>可以分为扩展类加载器和应用程序类加载器；启动类加载器负责加载${JAVA_HOME}/lib<br>路径下的类，扩展类加载器负责加载${JAVA_HOME}/ext目录下的类，应用程序类加载器<br>负责加载用户${CLASSPATH}路径下的类</p>
-<h2 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h2><p>定义：启动类加载器是C++实现的，没有父加载器，扩展类加载器的父加载器是null, 应用程序类加载器的<br>父加载器是扩展类加载器，当调用类加载器的loadClass方法时，会先让父加载器去加载，如果父加载器在它的<br>搜索范围内无法加载该类，它再调用findClass方法进行加载</p>
+<h2 id="ClassLoader分类"><a href="#ClassLoader分类" class="headerlink" title="ClassLoader分类"></a>ClassLoader分类</h2><p>站在jvm的角度，分为启动类加载器和其他类加载器，其他类加载器又<br>可以分为扩展类加载器和应用程序类加载器；启动类加载器负责加载${JAVA_HOME}/lib<br>路径下的类，扩展类加载器负责加载${JAVA_HOME}/lib/ext目录下的类，应用程序类加载器<br>负责加载用户${CLASSPATH}路径下的类</p>
+<h2 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h2><p>定义：启动类加载器是C++实现的，没有父加载器，扩展类加载器的父加载器是null, 应用程序类加载器的<br>父加载器是扩展类加载器，当调用类加载器的loadClass方法时，会先判断是否有父加载器，如果有父加载器，<br>则让父加载器去加载，如果没有父加载器，则让启动类加载器去加载，如果父加载器或者启动类加载器在它的<br>搜索范围内无法加载该类，它再调用findClass方法进行加载</p>
 <h2 id="为什么需要双亲委派模型"><a href="#为什么需要双亲委派模型" class="headerlink" title="为什么需要双亲委派模型"></a>为什么需要双亲委派模型</h2><p>不使用双亲委派模型，程序可能会混乱，基本的行为得不到保障。<br>比如：相同的class文件由两个不同的类加载器加载，他们是不相等的，<br>当我们调用instanceOf或者isAsignedFrom方法时，会有意想不到的结果。<br>而双亲委派模型让java类和加载它的类加载器拥有一种具有优先级的层次关系，<br>使得基础类库由不同类加载器加载时，返回的是相同的对象，从而保证系统的稳定</p>
-<h2 id="可以打破双亲委派模型吗"><a href="#可以打破双亲委派模型吗" class="headerlink" title="可以打破双亲委派模型吗?"></a>可以打破双亲委派模型吗?</h2><p>可以<br>某些情况下，父类加载器在自己的加载范围无法加载到需要的类，<br>需要委托子类加载器去加载。<br>典型的例子是结合数据库驱动看SPI机制是如何破坏双亲委派模型的，<br>DriverManager有启动类加载器加载，但是它所管理的数据库厂商<br>提供的实现类是由应用程序类加载器（系统类加载器）加载</p>
+<h2 id="可以打破双亲委派模型吗"><a href="#可以打破双亲委派模型吗" class="headerlink" title="可以打破双亲委派模型吗?"></a>可以打破双亲委派模型吗?</h2><p>可以<br>某些情况下，父类加载器在自己的加载范围无法加载到需要的类，<br>此时就需要委托子类加载器去加载。<br>典型的例子是结合数据库驱动看SPI机制是如何破坏双亲委派模型的，<br>DriverManager有启动类加载器加载，但是它所管理Driver接口的具体实现，<br>是数据库厂商提供的，他们是由应用程序类加载器（系统类加载器）加载</p>
 <h2 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h2><blockquote>
 <p>自定义类加载一般步骤是：继承ClassLoader,重写findClass方法，读取class文件的<br>字节数组后， 调用父类的defineClass，用字节数组生成class对象</p>
 </blockquote>
-<h1 id="Map相关知识"><a href="#Map相关知识" class="headerlink" title="Map相关知识"></a>Map相关知识</h1><h2 id="HashMap的工作原理"><a href="#HashMap的工作原理" class="headerlink" title="HashMap的工作原理"></a>HashMap的工作原理</h2><p>HashMap实现Map接口，通过put、get方法存储、获取键值对，键值对被封装在Map.Entry对象里，<br>当键值对传入put方法时，它调用key对象的hashCode方法计算hash值，并散列到hash数组中，<br>如果发生碰撞，就用链接地址法处理冲突；当调用get方法时，调用key值的hashCode方法，计算hash值，<br>定位hash桶的索引，通过key的hash值以及equals方法查找Map.Entry对象，并返回Entry对象的value值</p>
-<h2 id="HashMap的扩容"><a href="#HashMap的扩容" class="headerlink" title="HashMap的扩容"></a>HashMap的扩容</h2><p>HashMap的size大于最大容量的四分之三时，就会触发自动扩容，新的hash桶的容量是旧的hash桶容量的2倍，<br>然后将旧桶的数据rehashing到新的hash桶中</p>
-<h2 id="HashMap的rehashing"><a href="#HashMap的rehashing" class="headerlink" title="HashMap的rehashing"></a>HashMap的rehashing</h2><h2 id="HashMap在多线程环境中为什么不安全"><a href="#HashMap在多线程环境中为什么不安全" class="headerlink" title="HashMap在多线程环境中为什么不安全"></a>HashMap在多线程环境中为什么不安全</h2><p>在多线程并发地对同一个HashMap进行操作时会发生条件竞争，可能会发生意想不到的结果，甚至是程序卡死，<br>具体的场景是：</p>
+<h1 id="Map相关知识"><a href="#Map相关知识" class="headerlink" title="Map相关知识"></a>Map相关知识</h1><h2 id="HashMap的工作原理"><a href="#HashMap的工作原理" class="headerlink" title="HashMap的工作原理"></a>HashMap的工作原理</h2><p>HashMap实现Map接口，通过put、get方法存储、获取键值对，键值对被封装在Map.Entry接口的实现类里，<br>当键值对传入put方法时，它调用key对象的hashCode方法计算hash值，并散列到hash数组中，<br>如果发生碰撞，就用链接地址法处理冲突；当调用get方法时，调用key值的hashCode方法，计算hash值，<br>定位hash桶的索引，通过key的hash值以及equals方法查找Map.Entry对象，并返回Entry对象的value值</p>
+<h2 id="HashMap的扩容"><a href="#HashMap的扩容" class="headerlink" title="HashMap的扩容"></a>HashMap的扩容</h2><p>HashMap的size大于容量的四分之三时，就会触发自动扩容，新的hash桶的容量是旧的hash桶容量的2倍，<br>然后将旧桶的数据rehashing到新的hash桶中</p>
+<h2 id="HashMap的rehashing"><a href="#HashMap的rehashing" class="headerlink" title="HashMap的rehashing"></a>HashMap的rehashing</h2><p>如果hash桶中只有单个元素，直接rehash到新的hash桶中，如果不是单个元素，且该元素是TreeNode的实例，<br>就调用TreeNode的split方法，将红黑树分裂为两颗红黑树，如果不是红黑树，而是单链表，则将链表拆分为<br>高低两条子链表，分别复制到新hash桶中</p>
+<h2 id="HashMap在多线程环境中为什么不安全"><a href="#HashMap在多线程环境中为什么不安全" class="headerlink" title="HashMap在多线程环境中为什么不安全"></a>HashMap在多线程环境中为什么不安全</h2><p>多线程并发地对同一个HashMap进行操作时会发生条件竞争，可能会发生意想不到的结果，甚至是程序卡死，<br>具体的场景是：</p>
 <ol>
 <li>两个线程同时执行put操作，key的hash值映射到同一个空的hash桶，后执行的操作会覆盖先执行的操作，导致数据不一致</li>
-<li>当两个线程同时执行put操作时，都发现size大于最大容量的四分之三，都去执行扩容操作，可能会出现后执行的操作<br>覆盖先执行的操作，即部分新增数据被覆盖；也可能在将旧hash桶的数据rehashing到新hash桶时发生死循环</li>
-<li></li>
+<li>当两个线程同时执行put操作时，都发现size大于容量的四分之三，都去执行扩容操作，后执行的扩容操作的线程会<br>覆盖先执行扩容的操作，即部分新增数据被覆盖</li>
+<li>当两个线程同时执行扩容操作，在rehash时，也可能发生死循环</li>
 </ol>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1>
+<h1 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h1><p>继承AbstractSet，实现NavigableSet接口，NavigableSet接口继承SortedSet接口，SortedSet接口又继承了Set接口，<br>Set接口继承了Collection接口；它内部有一个HashMap对象来保存添加到HashSet中的数据，对hashset的所有操作，其实<br>都是对其内部的HashMap的操作</p>
+<h1 id="JVM内部结构"><a href="#JVM内部结构" class="headerlink" title="JVM内部结构"></a>JVM内部结构</h1><p>java内存模型定义了jvm所管理的内存接口，主要分为堆和栈，堆是jvm管理的最大的一块内存，是所有线程共享的，几乎所有的对象<br>实例都在堆上分配内存；堆可以细分为新生代、老年代以及方法区，新生代还可细分为Eden区和Survivor区，默认情况下新生代和老年代<br>的内存比例是1:2,可以通过参数-XX:NewRatio=2来设置，Eden区和Survivor区的比例默认情况下是8:1，可以通过参数-XX:SuvivorRatio=8来进行设置</p>
+<h1 id="Spring的bean的初始化过程"><a href="#Spring的bean的初始化过程" class="headerlink" title="Spring的bean的初始化过程"></a>Spring的bean的初始化过程</h1><h1 id="equals方法和hashCode方法，什么时候重写，为什么重写"><a href="#equals方法和hashCode方法，什么时候重写，为什么重写" class="headerlink" title="equals方法和hashCode方法，什么时候重写，为什么重写"></a>equals方法和hashCode方法，什么时候重写，为什么重写</h1><h1 id="hashMap的操作过程"><a href="#hashMap的操作过程" class="headerlink" title="hashMap的操作过程"></a>hashMap的操作过程</h1><h1 id="用过哪些设计模式"><a href="#用过哪些设计模式" class="headerlink" title="用过哪些设计模式"></a>用过哪些设计模式</h1><h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1>
       
     </div>
     
@@ -475,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/23/personal-understanding-of-red-black-tree/" rel="prev" title="personal understanding of red-black tree">
+                personal understanding of red-black tree <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -553,7 +561,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -575,7 +583,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-count">76</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -610,7 +618,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassLoader相关知识"><span class="nav-number">2.</span> <span class="nav-text">ClassLoader相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassLoader是什么？"><span class="nav-number">2.1.</span> <span class="nav-text">ClassLoader是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassLoader分类"><span class="nav-number">2.2.</span> <span class="nav-text">ClassLoader分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模型"><span class="nav-number">2.3.</span> <span class="nav-text">双亲委派模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要双亲委派模型"><span class="nav-number">2.4.</span> <span class="nav-text">为什么需要双亲委派模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可以打破双亲委派模型吗"><span class="nav-number">2.5.</span> <span class="nav-text">可以打破双亲委派模型吗?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义类加载器"><span class="nav-number">2.6.</span> <span class="nav-text">自定义类加载器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Map相关知识"><span class="nav-number">3.</span> <span class="nav-text">Map相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的工作原理"><span class="nav-number">3.1.</span> <span class="nav-text">HashMap的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的扩容"><span class="nav-number">3.2.</span> <span class="nav-text">HashMap的扩容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的rehashing"><span class="nav-number">3.3.</span> <span class="nav-text">HashMap的rehashing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap在多线程环境中为什么不安全"><span class="nav-number">3.4.</span> <span class="nav-text">HashMap在多线程环境中为什么不安全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassLoader相关知识"><span class="nav-number">2.</span> <span class="nav-text">ClassLoader相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassLoader是什么？"><span class="nav-number">2.1.</span> <span class="nav-text">ClassLoader是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassLoader分类"><span class="nav-number">2.2.</span> <span class="nav-text">ClassLoader分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模型"><span class="nav-number">2.3.</span> <span class="nav-text">双亲委派模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要双亲委派模型"><span class="nav-number">2.4.</span> <span class="nav-text">为什么需要双亲委派模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可以打破双亲委派模型吗"><span class="nav-number">2.5.</span> <span class="nav-text">可以打破双亲委派模型吗?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义类加载器"><span class="nav-number">2.6.</span> <span class="nav-text">自定义类加载器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Map相关知识"><span class="nav-number">3.</span> <span class="nav-text">Map相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的工作原理"><span class="nav-number">3.1.</span> <span class="nav-text">HashMap的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的扩容"><span class="nav-number">3.2.</span> <span class="nav-text">HashMap的扩容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap的rehashing"><span class="nav-number">3.3.</span> <span class="nav-text">HashMap的rehashing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap在多线程环境中为什么不安全"><span class="nav-number">3.4.</span> <span class="nav-text">HashMap在多线程环境中为什么不安全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashSet"><span class="nav-number">4.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM内部结构"><span class="nav-number">5.</span> <span class="nav-text">JVM内部结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring的bean的初始化过程"><span class="nav-number">6.</span> <span class="nav-text">Spring的bean的初始化过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#equals方法和hashCode方法，什么时候重写，为什么重写"><span class="nav-number">7.</span> <span class="nav-text">equals方法和hashCode方法，什么时候重写，为什么重写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashMap的操作过程"><span class="nav-number">8.</span> <span class="nav-text">hashMap的操作过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用过哪些设计模式"><span class="nav-number">9.</span> <span class="nav-text">用过哪些设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-number">10.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
