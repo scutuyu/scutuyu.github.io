@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="概述 CLR 变色 左旋 右旋 红黑树的自平衡">
+<meta name="description" content="概述红黑树的定义：  根节点为黑色 所有节点非黑即红 红色节点的子节点必须是黑色 从根节点到它所有子节点的路径中包含相同数量的黑色节点   CLR 变色 左旋 右旋 红黑树的自平衡">
 <meta name="keywords" content="红黑树,变色,左旋,右旋">
 <meta property="og:type" content="article">
 <meta property="og:title" content="personal understanding of red-black tree">
 <meta property="og:url" content="http://scutuyu.com/2019/01/23/personal-understanding-of-red-black-tree/index.html">
 <meta property="og:site_name" content="scutuyu">
-<meta property="og:description" content="概述 CLR 变色 左旋 右旋 红黑树的自平衡">
+<meta property="og:description" content="概述红黑树的定义：  根节点为黑色 所有节点非黑即红 红色节点的子节点必须是黑色 从根节点到它所有子节点的路径中包含相同数量的黑色节点   CLR 变色 左旋 右旋 红黑树的自平衡">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-24T01:04:24.000Z">
+<meta property="og:updated_time" content="2019-02-13T02:09:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="personal understanding of red-black tree">
-<meta name="twitter:description" content="概述 CLR 变色 左旋 右旋 红黑树的自平衡">
+<meta name="twitter:description" content="概述红黑树的定义：  根节点为黑色 所有节点非黑即红 红色节点的子节点必须是黑色 从根节点到它所有子节点的路径中包含相同数量的黑色节点   CLR 变色 左旋 右旋 红黑树的自平衡">
 
 
 
@@ -357,8 +357,8 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2019-01-24T09:04:24+08:00" content="2019-01-24">
-                2019-01-24
+              <time itemprop="dateUpdated" datetime="2019-02-13T10:09:48+08:00" content="2019-02-13">
+                2019-02-13
               </time>
             </span>
           
@@ -391,7 +391,14 @@
       
 
       
-        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ol>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>红黑树的定义：</p>
+<ul>
+<li>根节点为黑色</li>
+<li>所有节点非黑即红</li>
+<li>红色节点的子节点必须是黑色</li>
+<li>从根节点到它所有子节点的路径中包含相同数量的黑色节点</li>
+</ul>
+<ol>
 <li>CLR</li>
 <li>变色</li>
 <li>左旋</li>
@@ -401,7 +408,13 @@
 </ol>
 <h1 id="CLR"><a href="#CLR" class="headerlink" title="CLR"></a>CLR</h1><p><a href="https://stackoverflow.com/questions/38482750/from-clr-in-java-treemap-implementation" target="_blank" rel="noopener">CLR</a>是三个人名的缩写，分别是<code>Cormen</code>、<code>Leiserson</code>和<code>Rivest</code>，他们都是第一版《算法导论》的作者.</p>
 <p>在jdk8源码中，TreeMap类中关于fixAfterInsertion方法的实现就是从《算法导论》中获取的，由方法上的注释可知：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/** From CLR */</span><br><span class="line">private void fixAfterInsertion(Entry&lt;K,V&gt; x) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="变色"><a href="#变色" class="headerlink" title="变色"></a>变色</h1><h1 id="左旋"><a href="#左旋" class="headerlink" title="左旋"></a>左旋</h1><h1 id="右旋"><a href="#右旋" class="headerlink" title="右旋"></a>右旋</h1><h1 id="红黑树的自平衡"><a href="#红黑树的自平衡" class="headerlink" title="红黑树的自平衡"></a>红黑树的自平衡</h1><h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1>
+<h1 id="变色"><a href="#变色" class="headerlink" title="变色"></a>变色</h1><p>在fixAfterInsertion方法中，第二步就是判断叔叔节点的颜色，如果叔叔节点是红色，就将父亲节点和x节点(x节点就是当前插入的节点)颜色变为黑色，祖父节点变为红色，<br>并将x指向祖父节点进行递归调用</p>
+<h1 id="左旋"><a href="#左旋" class="headerlink" title="左旋"></a>左旋</h1><p>在fixAfterInsertion方法中，有两个地方可能会左旋，父亲节点是祖父节点的右节点，且自己是父节点的右节点，父节点变为黑色，祖父节点变为红色，对祖父节点进行左旋；<br>第二个地方是，如果父节点是祖父节点的左节点，且自己是父节点的右节点，此时会先对父节点进行左旋</p>
+<h1 id="右旋"><a href="#右旋" class="headerlink" title="右旋"></a>右旋</h1><p>和左旋类似，在fixAfterInsertion方法中，有两个地方可能会右旋，父节点是是祖父节点的左节点，且自己是父节点的左节点，父节点变为黑色，祖父节点变为红色，<br>对父节点进行右旋；第二给地方是，如果父节点是祖父节点的右节点，且自己是父节点的左节点，此时会先对父节点进行右旋</p>
+<h1 id="红黑树的自平衡"><a href="#红黑树的自平衡" class="headerlink" title="红黑树的自平衡"></a>红黑树的自平衡</h1><p>红黑树的自平衡在TreeMap中体现在两个地方，一个是fixAfterInsertion,一个是fixAfterDeletion。</p>
+<p>在fixAfterInsertion方法中，自平衡的逻辑在一个while循环中，终止条件是传入的节点（比如x节点）不等于null，且不是根节点，且颜色等于红色；<br>如果x节点的父节点是祖父节点的左节点，如果叔叔节点是红色，则执行变色逻辑，反之，则执行右旋逻辑，在执行右旋之前，如果x节点是父节点的右节点，<br>要先对父节点执行左旋（不变色），最后再执行右旋；<br>如果x节点的父节点是祖父节点的右节点，如果叔叔节点是红色，则执行变色逻辑，反之，则执行左旋逻辑，在执行左旋之前，如果x节点是父节点的左节点，<br>要先对父节点执行右旋（不变色），最后在执行左旋。</p>
+<p>在fixAfterDeletion方法中，自平衡的逻辑也在一个while循环中，终止条件是传入的节点（比如x节点）不等于null，未完待续…</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1>
       
     </div>
     

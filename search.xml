@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[personal understanding of red-black tree]]></title>
     <url>%2F2019%2F01%2F23%2Fpersonal-understanding-of-red-black-tree%2F</url>
-    <content type="text"><![CDATA[概述 CLR 变色 左旋 右旋 红黑树的自平衡 CLRCLR是三个人名的缩写，分别是Cormen、Leiserson和Rivest，他们都是第一版《算法导论》的作者. 在jdk8源码中，TreeMap类中关于fixAfterInsertion方法的实现就是从《算法导论》中获取的，由方法上的注释可知：1234/** From CLR */private void fixAfterInsertion(Entry&lt;K,V&gt; x) &#123; ...&#125; 变色左旋右旋红黑树的自平衡参考链接]]></content>
+    <content type="text"><![CDATA[概述红黑树的定义： 根节点为黑色 所有节点非黑即红 红色节点的子节点必须是黑色 从根节点到它所有子节点的路径中包含相同数量的黑色节点 CLR 变色 左旋 右旋 红黑树的自平衡 CLRCLR是三个人名的缩写，分别是Cormen、Leiserson和Rivest，他们都是第一版《算法导论》的作者. 在jdk8源码中，TreeMap类中关于fixAfterInsertion方法的实现就是从《算法导论》中获取的，由方法上的注释可知：1234/** From CLR */private void fixAfterInsertion(Entry&lt;K,V&gt; x) &#123; ...&#125; 变色在fixAfterInsertion方法中，第二步就是判断叔叔节点的颜色，如果叔叔节点是红色，就将父亲节点和x节点(x节点就是当前插入的节点)颜色变为黑色，祖父节点变为红色，并将x指向祖父节点进行递归调用 左旋在fixAfterInsertion方法中，有两个地方可能会左旋，父亲节点是祖父节点的右节点，且自己是父节点的右节点，父节点变为黑色，祖父节点变为红色，对祖父节点进行左旋；第二个地方是，如果父节点是祖父节点的左节点，且自己是父节点的右节点，此时会先对父节点进行左旋 右旋和左旋类似，在fixAfterInsertion方法中，有两个地方可能会右旋，父节点是是祖父节点的左节点，且自己是父节点的左节点，父节点变为黑色，祖父节点变为红色，对父节点进行右旋；第二给地方是，如果父节点是祖父节点的右节点，且自己是父节点的左节点，此时会先对父节点进行右旋 红黑树的自平衡红黑树的自平衡在TreeMap中体现在两个地方，一个是fixAfterInsertion,一个是fixAfterDeletion。 在fixAfterInsertion方法中，自平衡的逻辑在一个while循环中，终止条件是传入的节点（比如x节点）不等于null，且不是根节点，且颜色等于红色；如果x节点的父节点是祖父节点的左节点，如果叔叔节点是红色，则执行变色逻辑，反之，则执行右旋逻辑，在执行右旋之前，如果x节点是父节点的右节点，要先对父节点执行左旋（不变色），最后再执行右旋；如果x节点的父节点是祖父节点的右节点，如果叔叔节点是红色，则执行变色逻辑，反之，则执行左旋逻辑，在执行左旋之前，如果x节点是父节点的左节点，要先对父节点执行右旋（不变色），最后在执行左旋。 在fixAfterDeletion方法中，自平衡的逻辑也在一个while循环中，终止条件是传入的节点（比如x节点）不等于null，未完待续… 参考链接]]></content>
       <tags>
         <tag>红黑树</tag>
         <tag>变色</tag>
