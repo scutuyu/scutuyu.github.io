@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="scutuyu">
 <meta property="og:description" content="概述web应用一般都运行于web容器中，比如Tomcat服务器，Spring MVC框架定义了一个Servlet叫DispatcherServlet，传统的做法就是在web.xml配置文件中将该Servlet配置到Servlet容器中，并拦截所有的请求/或者/*。 我自定义了一个Servlet，拦截所有的请求，它继承HttpServlet，重写了父类GenericServlet的init()，做一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-16T09:35:31.000Z">
+<meta property="og:updated_time" content="2019-02-16T09:42:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="awesome dispatcher servlet">
 <meta name="twitter:description" content="概述web应用一般都运行于web容器中，比如Tomcat服务器，Spring MVC框架定义了一个Servlet叫DispatcherServlet，传统的做法就是在web.xml配置文件中将该Servlet配置到Servlet容器中，并拦截所有的请求/或者/*。 我自定义了一个Servlet，拦截所有的请求，它继承HttpServlet，重写了父类GenericServlet的init()，做一">
@@ -356,7 +356,7 @@
           
             <span class="post-updated">
               &nbsp; | &nbsp; 更新于
-              <time itemprop="dateUpdated" datetime="2019-02-16T17:35:31+08:00" content="2019-02-16">
+              <time itemprop="dateUpdated" datetime="2019-02-16T17:42:40+08:00" content="2019-02-16">
                 2019-02-16
               </time>
             </span>
@@ -399,7 +399,7 @@
 <li>请求分发</li>
 </ul>
 <a id="more"></a>
-<h1 id="初始化并缓存所有处理器"><a href="#初始化并缓存所有处理器" class="headerlink" title="初始化并缓存所有处理器"></a>初始化并缓存所有处理器</h1><p>通过<code>Servlet</code>的<code>init()</code>初始化项目中所有的控制器类，并把它们缓存在一个Map中，key是URI，value是封装了处理该URI的处理器类、方法等信息。</p>
+<h1 id="初始化并缓存所有处理器"><a href="#初始化并缓存所有处理器" class="headerlink" title="初始化并缓存所有处理器"></a>初始化并缓存所有处理器</h1><p>通过<code>Servlet</code>的<code>init()</code>初始化项目中所有的控制器类，并把它们缓存在一个<code>Map</code>中，<code>key</code>是<code>URI</code>，<code>value</code>是封装了处理该<code>URI</code>的处理器类、方法等信息。</p>
 <h1 id="拦截所有请求"><a href="#拦截所有请求" class="headerlink" title="拦截所有请求"></a>拦截所有请求</h1><p>在自定义的<code>DispatcherServlet</code>类上使用<code>Servlet 3.0</code>的<code>@WebServlet</code>注解，并指定<code>urlPatterns</code>属性，值为<code>/</code>或者<code>/*</code>，多说一句，查阅<a href="https://www.cnblogs.com/51kata/p/5152400.html" target="_blank" rel="noopener">资料</a>发现，<code>/</code>和<code>/*</code>其实表示的意思是一样的，都表示任意的<code>URL</code>，<code>Servlet</code>的<code>urlPattern</code>不是简单的通配符，也不是正则表达式，而是具有自己的匹配规则。</p>
 <h1 id="静态资源特殊处理"><a href="#静态资源特殊处理" class="headerlink" title="静态资源特殊处理"></a>静态资源特殊处理</h1><p>判断请求是否为静态资源，项目中直接判断<code>URI</code>是否为<code>/</code>，如果是，将返回根目录下的<code>index.html</code>文件</p>
 <h1 id="请求分发"><a href="#请求分发" class="headerlink" title="请求分发"></a>请求分发</h1><p>根据请求的<code>URI</code>，在处理器缓存中查找对应的处理器，如果找不到，则返回<code>404</code>，如果找到了，就利用反射机制，让处理器类的实例来处理请求，最后将结果使用<code>fastjson</code>做序列化并响应请求。</p>
